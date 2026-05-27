@@ -83,3 +83,38 @@ https://os.yourdomain.com/webhooks/telegram
 https://os.yourdomain.com/webhooks/sendblue
 https://os.yourdomain.com/webhooks/events
 ```
+
+## Current Test Deployment
+
+Observed on 2026-05-27:
+
+```txt
+VM: hermes-telegram-vm
+Public IP: 4.151.184.237
+BusinessOS path: /opt/businessOS
+Public dashboard: http://4.151.184.237/oFpYcvDjUZ2TmaawGFCxUhJqTMYXRY8g
+Health: http://4.151.184.237/health
+Sendblue webhook: http://4.151.184.237/webhooks/sendblue
+```
+
+Current services:
+
+```txt
+hermes-gateway.service
+businessos-web.service
+```
+
+`businessos-web.service` runs `services/businessos_web.py`, which serves the public status page and Sendblue webhook receiver/router.
+
+Sendblue webhook security:
+
+- Sendblue must include the `sb-signing-secret` header.
+- The value must match `SENDBLUE_SECRET_KEY` from `/opt/businessOS/.env`.
+- Unauthorized requests are logged to `memory-system/communications/sendblue-webhook-rejected.jsonl`.
+
+Routing:
+
+- Incoming Sendblue payloads are logged to `memory-system/communications/sendblue-webhook.jsonl`.
+- Sender phone numbers are normalized and matched against root `employees.json`.
+- If matched, the service creates a Hermes Kanban task on the `businessos-employees` board assigned to the employee `agent_id`.
+- If unmatched, the message is logged to `memory-system/communications/sendblue-unassigned.jsonl`.
