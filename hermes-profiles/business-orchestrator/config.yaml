@@ -1,0 +1,7 @@
+terminal:
+  backend: local
+  cwd: "."
+display:
+  platforms:
+    telegram:
+      notifications: important

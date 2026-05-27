@@ -1,0 +1,23 @@
+.env
+.env.*
+!.env.example
+*.log
+*.tmp
+.DS_Store
+Thumbs.db
+
+# Local exports and downloaded source documents should stay out of the operating layer by default.
+exports/
+downloads/
+local-data-room-copy/
+
+# Local secrets, credentials, and sensitive exports.
+secrets/
+credentials/
+*.pem
+*.key
+*.pfx
+*.ppk
+
+# Optional private employee memory files. Root employees.json is intentionally tracked as the shared registry shape.
+agents/employees/*/memory.private.md

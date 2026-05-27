@@ -1,0 +1,10 @@
+name: business-evaluator
+version: 0.1.0
+description: "Independent evaluator for code, automations, workflows, campaigns, content, and business changes before shipping."
+hermes_requires: ">=0.12.0"
+author: "Business Pod"
+license: "Private"
+env_requires:
+  - name: GOOGLE_DRIVE_DATA_ROOM_URL
+    description: "Google Drive data room root URL"
+    required: true

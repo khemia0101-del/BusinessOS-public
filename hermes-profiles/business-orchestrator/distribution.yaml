@@ -1,0 +1,22 @@
+name: business-orchestrator
+version: 0.1.0
+description: "Autonomous Business Pod orchestrator for source-linked business understanding, approvals, execution, audits, and reports."
+hermes_requires: ">=0.12.0"
+author: "Business Pod"
+license: "Private"
+env_requires:
+  - name: GOOGLE_DRIVE_DATA_ROOM_URL
+    description: "Google Drive data room root URL"
+    required: true
+  - name: TELEGRAM_BOT_TOKEN
+    description: "Telegram bot token for owner/partner communication"
+    required: false
+    default: ""
+  - name: TELEGRAM_ALLOWED_USERS
+    description: "Comma-separated Telegram numeric user IDs allowed to use the bot"
+    required: false
+    default: ""
+  - name: SENDBLUE_API_KEY
+    description: "Sendblue API key for iMessage/SMS workflows"
+    required: false
+    default: ""

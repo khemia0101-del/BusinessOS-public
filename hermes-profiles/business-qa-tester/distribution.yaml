@@ -1,0 +1,10 @@
+name: business-qa-tester
+version: 0.1.0
+description: "QA and simulation profile for testing utilities, automations, workflows, campaigns, and system changes before launch."
+hermes_requires: ">=0.12.0"
+author: "Business Pod"
+license: "Private"
+env_requires:
+  - name: GOOGLE_DRIVE_DATA_ROOM_URL
+    description: "Google Drive data room root URL"
+    required: true

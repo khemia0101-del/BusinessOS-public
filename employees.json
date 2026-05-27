@@ -1,0 +1,49 @@
+{
+  "version": 1,
+  "purpose": "Shared employee/human registry accessible to all Business Pod agents. Personal notes and memory belong in each employee agent profile folder, not in this root file.",
+  "stage": "pre_acquisition",
+  "default_rules": [
+    "Use this file to identify humans, roles, responsibilities, communication handles, and agent mappings.",
+    "Do not store sensitive personal notes in this root file.",
+    "Do not contact employees unless the current acquisition mode and approval scope allow it.",
+    "Employee agents collect signal and feedback; they do not manage, discipline, evaluate, or make HR promises.",
+    "Personal notes and memory should live beside the relevant employee agent profile."
+  ],
+  "employees": [],
+  "schema": {
+    "employee_id": "stable internal id, e.g. emp-001",
+    "agent_id": "stable agent/profile id, e.g. employee-agent-emp-001",
+    "name": "human readable name",
+    "role": "job title or functional role",
+    "status": "candidate | active | inactive | unknown",
+    "responsibilities": [
+      "responsibility 1",
+      "responsibility 2"
+    ],
+    "phone": {
+      "e164": "+15555555555",
+      "sendblue_enabled": false,
+      "preferred_for": ["imessage", "sms"]
+    },
+    "telegram": {
+      "username": "",
+      "user_id": "",
+      "chat_id": ""
+    },
+    "email": "",
+    "timezone": "",
+    "communication_preferences": [],
+    "agent_profile_path": "agents/employees/<agent_id>/profile.md",
+    "memory_path": "agents/employees/<agent_id>/memory.md",
+    "notes_policy": "personal notes and memory go in memory_path, not employees.json",
+    "consent": {
+      "employee_agent_enabled": false,
+      "approved_channel": "",
+      "approved_scope": "",
+      "approved_by": "",
+      "approved_at": ""
+    },
+    "last_contacted_at": "",
+    "source": ""
+  }
+}
