@@ -2,32 +2,27 @@
 
 ## Purpose
 
-Define the current offer, target customer, pain points, proof, and positioning.
+Define what the business sells, to whom, why the customer chooses it, what proof supports the promise, and which claims or terms create risk.
 
-## Current Offer
+## Required Evidence
 
-Source needed.
+- Current products, services, scope, and price
+- Actual customer segments and use cases
+- Sales calls, proposals, contracts, and website copy
+- Win, loss, objection, cancellation, refund, and complaint reasons
+- Delivery outcomes and documented proof
+- Competitor and alternative offers
+- Industry, advertising, privacy, and customer-protection constraints
 
-## Target Customer
+## Output
 
-Source needed.
+- Target customer and buying situation
+- Problem and desired outcome
+- Offer structure and economics
+- Differentiation supported by evidence
+- Approved proof and claims
+- Common objections and response
+- Disallowed or unsupported claims
+- Assumptions and tests still required
 
-## Core Pain
-
-Source needed.
-
-## Proof
-
-Source needed.
-
-## Risks
-
-- Credit repair claims may require compliance review.
-- Guarantees, timelines, outcomes, and testimonials require source support and compliance review.
-
-## Open Questions
-
-- What is promised to customers today?
-- What outcomes are typical, provable, and compliant to mention?
-- What differentiates the business from alternatives?
-- What objections block sales?
+Guarantees, timelines, outcomes, pricing terms, and testimonials require source support and the appropriate compliance review.

@@ -45,7 +45,7 @@ Recommendations should include:
 
 Compliance review is required before:
 
-- Customer-facing credit repair claims.
+- Customer-facing regulated or outcome claims.
 - Ads.
 - Outreach campaigns.
 - Landing pages.

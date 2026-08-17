@@ -1,29 +1,53 @@
-# Baseline Underwriting Report Template
+# Underwriting Report Template
 
-## Business
+- Status: `working | decision-ready with exceptions | final`
+- As-of date:
+- Business instance:
+- Prepared by:
 
-## Source Coverage
+## Executive Decision Brief
 
-## Revenue
+- Recommendation: `proceed | proceed with conditions | pause | decline`
+- Purchase and structure context:
+- Normalized earnings and cash requirement:
+- The three strongest reasons to proceed:
+- The three largest decision risks:
+- Conditions and walk-away triggers:
+- Material low-confidence conclusions:
 
-## Gross Margin
+## Business and Transaction
 
-## Net Margin
+## Evidence Coverage and Conflicts
 
-## Owner Benefit
+| Domain | Confidence | Material evidence | Missing or conflicting evidence | Decision impact |
+| ------ | ---------- | ----------------- | ------------------------------- | --------------- |
 
-## Customer Acquisition
+## Historical and Normalized Financials
 
-## Operations
+### Reconciliations
 
-## Employees / Roles
+### Normalization adjustments
 
-## Compliance Risks
+### Cash, working capital, debt, and capital expenditure
 
-## Missing Documents
+## Revenue Quality and Customer Economics
 
-## Open Questions
+## Operations and Capacity
 
-## Initial Bottlenecks
+## People and Owner Dependence
 
-## Recommended Next Tickets
+## Systems, Data, and Missing Capabilities
+
+## Market, Competition, Legal, Insurance, and Compliance
+
+## Risk Register and Deal Protections
+
+## Valuation and Return Scenarios
+
+## First 100-Day Priorities
+
+## Missing Evidence and Seller Questions
+
+## Source Register
+
+Complete the machine-readable companion using `schemas/underwriting.schema.json`.

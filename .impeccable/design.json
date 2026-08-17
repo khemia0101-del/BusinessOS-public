@@ -1,0 +1,212 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-17T00:00:00+03:00",
+  "title": "Design System: BusinessOS",
+  "extensions": {
+    "colorMeta": {
+      "operating-blue": {
+        "role": "primary",
+        "displayName": "Operating Blue",
+        "canonical": "#155eef",
+        "tonalRamp": [
+          "#071a3d",
+          "#0a2d70",
+          "#0f46aa",
+          "#155eef",
+          "#4c82f2",
+          "#86aafa",
+          "#bfd2fd",
+          "#edf4ff"
+        ]
+      },
+      "ink-black": {
+        "role": "neutral",
+        "displayName": "Ink Black",
+        "canonical": "#12151a",
+        "tonalRamp": [
+          "#12151a",
+          "#29303a",
+          "#454e5b",
+          "#697381",
+          "#929aa5",
+          "#bcc1c8",
+          "#e0e3e7",
+          "#f6f7f9"
+        ]
+      },
+      "healthy-green": {
+        "role": "status",
+        "displayName": "Healthy Green",
+        "canonical": "#11643b",
+        "tonalRamp": [
+          "#082619",
+          "#0b3d26",
+          "#0e5231",
+          "#11643b",
+          "#31835a",
+          "#68a984",
+          "#add7bd",
+          "#ecf8f1"
+        ]
+      },
+      "attention-amber": {
+        "role": "status",
+        "displayName": "Attention Amber",
+        "canonical": "#7a4f01",
+        "tonalRamp": [
+          "#291c03",
+          "#443005",
+          "#624106",
+          "#7a4f01",
+          "#a06c0d",
+          "#c99230",
+          "#e9c979",
+          "#fff6df"
+        ]
+      },
+      "material-red": {
+        "role": "status",
+        "displayName": "Material Red",
+        "canonical": "#a11d2f",
+        "tonalRamp": [
+          "#380b13",
+          "#5c101e",
+          "#7c1627",
+          "#a11d2f",
+          "#c14453",
+          "#db7b86",
+          "#efb8bd",
+          "#fff0f1"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Page Display",
+        "purpose": "Page titles only."
+      },
+      "title": {
+        "displayName": "Operating Title",
+        "purpose": "Sections and strong labels."
+      },
+      "body": {
+        "displayName": "Business Body",
+        "purpose": "Evidence and decision explanations."
+      },
+      "label": {
+        "displayName": "Control Label",
+        "purpose": "Controls, metrics, statuses, and table labels."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "state-quick",
+        "value": "140ms ease-out",
+        "purpose": "Navigation, button hover, and status changes."
+      },
+      {
+        "name": "focus-ring",
+        "value": "0 0 0 3px rgba(21, 94, 239, 0.2)",
+        "purpose": "Keyboard focus only."
+      }
+    ],
+    "breakpoints": [
+      { "name": "detail-collapse", "value": "1100px" },
+      { "name": "mobile-nav", "value": "820px" },
+      { "name": "single-column", "value": "620px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The single dominant action in a decision context.",
+      "html": "<button class=\"ds-button-primary\">Review decision</button>",
+      "css": ".ds-button-primary{min-height:38px;padding:0 14px;border:1px solid transparent;border-radius:8px;color:#fff;background:#155eef;font:650 13px Inter,system-ui,sans-serif;transition:background-color 140ms ease-out}.ds-button-primary:hover{background:#0f4fce}.ds-button-primary:focus-visible{outline:none;box-shadow:0 0 0 3px rgba(21,94,239,.2)}"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "A supporting action without primary emphasis.",
+      "html": "<button class=\"ds-button-secondary\">View evidence</button>",
+      "css": ".ds-button-secondary{min-height:38px;padding:0 14px;border:1px solid #cbd1d8;border-radius:8px;color:#12151a;background:#fff;font:650 13px Inter,system-ui,sans-serif;transition:background-color 140ms ease-out}.ds-button-secondary:hover{background:#f8f9fb}.ds-button-secondary:focus-visible{outline:none;box-shadow:0 0 0 3px rgba(21,94,239,.2)}"
+    },
+    {
+      "name": "Attention Status",
+      "kind": "chip",
+      "refersTo": "status-chip",
+      "description": "A decision or dependency that requires attention.",
+      "html": "<span class=\"ds-status-attention\">Needs decision</span>",
+      "css": ".ds-status-attention{display:inline-flex;align-items:center;min-height:23px;padding:0 8px;border-radius:999px;color:#7a4f01;background:#fff6df;font:650 11px Inter,system-ui,sans-serif}"
+    },
+    {
+      "name": "Navigation Item",
+      "kind": "nav",
+      "refersTo": "navigation",
+      "description": "Compact business navigation with a tonal active state.",
+      "html": "<a class=\"ds-nav-item\" href=\"#\" aria-current=\"page\">Underwriting</a>",
+      "css": ".ds-nav-item{display:flex;min-height:38px;align-items:center;padding:0 10px;border-radius:8px;color:#12151a;background:#e9edf2;font:650 13px Inter,system-ui,sans-serif;text-decoration:none}.ds-nav-item:hover{background:#eef1f5}.ds-nav-item:focus-visible{outline:none;box-shadow:0 0 0 3px rgba(21,94,239,.2)}"
+    },
+    {
+      "name": "Operating Panel",
+      "kind": "card",
+      "refersTo": "panel",
+      "description": "A flat working surface for lists, tables, and decision records.",
+      "html": "<section class=\"ds-panel\"><strong>What BusinessOS found</strong><p>Three material findings are ready for review.</p></section>",
+      "css": ".ds-panel{padding:18px;border:1px solid #dfe3e8;border-radius:12px;color:#12151a;background:#fff;font:14px/1.5 Inter,system-ui,sans-serif}.ds-panel strong{font-weight:680}.ds-panel p{margin:5px 0 0;color:#5b6471;font-size:12px}"
+    },
+    {
+      "name": "Evidence Coverage",
+      "kind": "custom",
+      "refersTo": "evidence-coverage",
+      "description": "Coverage paired with the decision-changing missing evidence.",
+      "html": "<div class=\"ds-coverage\"><strong>Revenue quality</strong><div><span style=\"width:61%\"></span></div><small>61% covered · customer-level history needed</small></div>",
+      "css": ".ds-coverage{color:#12151a;font:12px/1.4 Inter,system-ui,sans-serif}.ds-coverage strong{display:block;font-weight:650}.ds-coverage div{height:7px;margin-top:9px;overflow:hidden;border-radius:999px;background:#e7eaee}.ds-coverage div span{display:block;height:100%;border-radius:inherit;background:#5c718f}.ds-coverage small{display:block;margin-top:5px;color:#5b6471;font-size:11px}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Operating Desk",
+    "overview": "BusinessOS feels like a well-run operating review that has already been prepared for the owner: calm, exact, and immediately useful. It is not an agent playground or developer console. The interface leads with business condition and decisions while keeping evidence and technical detail close enough to inspect. The density is compact but never cryptic. White space separates decisions, not decoration. Tables, timelines, and structured lists carry the work because the product is used during diligence, daily check-ins, and management reviews.",
+    "keyCharacteristics": [
+      "White, crisp, and operational",
+      "Plain language before technical detail",
+      "Dense lists and tables instead of a wall of cards",
+      "Status colors reserved for real state and risk",
+      "Business evidence always close to the conclusion"
+    ],
+    "rules": [
+      {
+        "name": "The Earned Color Rule",
+        "body": "Blue names an action; green, amber, and red name a real state. None of them are decorative.",
+        "section": "colors"
+      },
+      {
+        "name": "The Business Language Rule",
+        "body": "User-facing type says what happened, why it matters, and what is needed. Internal agent vocabulary stays in developer detail.",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat Working Surface Rule",
+        "body": "A panel earns a border or a surface change, never a border plus a decorative shadow.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do lead a page with the current business decision or condition.",
+      "Do use tables and structured rows for repeated operational data.",
+      "Do label illustrative data visibly and keep claims tied to evidence.",
+      "Do expose cost, impact, proof, and rollback before approval.",
+      "Do preserve keyboard focus, responsive behavior, and plain-language recovery states."
+    ],
+    "donts": [
+      "Don't expose agent, tool-call, or infrastructure language in the owner workflow.",
+      "Don't use gradients, glass effects, decorative shadows, or color for atmosphere.",
+      "Don't build the page from equal icon-heading-description cards.",
+      "Don't use a pill for ordinary buttons, panels, or navigation.",
+      "Don't imply an action works when it is only a static prototype."
+    ]
+  }
+}

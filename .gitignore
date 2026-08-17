@@ -5,6 +5,8 @@
 *.tmp
 .DS_Store
 Thumbs.db
+__pycache__/
+*.py[cod]
 
 # Local exports and downloaded source documents should stay out of the operating layer by default.
 exports/

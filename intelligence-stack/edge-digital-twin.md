@@ -1,115 +1,60 @@
-# Edge Digital Twin
+# Parallel Workflow Proof
 
 ## Purpose
 
-An Edge Digital Twin is a parallel AI-native workflow that runs beside the live business workflow before it is trusted with real traffic.
-
-The twin is how Hermes proves a new automation is better before replacing a human/manual process.
+A parallel workflow proof tests a proposed process against real business activity before it replaces the live process. Use it for high-impact or uncertain changes where a backtest or simple simulation is not enough.
 
 ## Core Rule
 
-Do not rip out the cash cow. Fork the data stream, run the new system in parallel, compare performance, then migrate gradually only after evidence shows the twin is better.
+Copy the relevant input stream, run the proposed workflow without external action, compare it with the current workflow, then promote gradually only when the evidence passes the initiative's gate.
 
-## How The Twin Works
+## Flow
 
-1. Map the live workflow.
-2. Define the business objective.
-3. Define baseline KPIs.
-4. Fork or copy the input data stream.
-5. Run the twin without external action in shadow mode.
-6. Compare twin decisions against human/current decisions.
-7. Review errors and edge cases.
-8. Run a tiny approved live pilot.
-9. Expand to a small batch.
-10. Migrate more traffic only if promotion gates pass.
-11. Keep rollback and human override available.
+1. Map the live workflow and its exceptions.
+2. Define the business objective and baseline.
+3. Choose historical replay, simulation, shadow mode, or a pilot.
+4. Copy only the data needed for the test.
+5. Record proposed and actual decisions, time, quality, and outcome.
+6. Review disagreements and harmful edge cases.
+7. Pass independent evaluation and compliance review when required.
+8. Use a small approved live pilot if behavior must be observed.
+9. Expand only after the promotion gate passes.
+10. Keep human override, stop conditions, and rollback available.
 
-## Example: Lead Onboarding
+## Example: Lead Intake
 
-Live workflow:
-
-Website form -> Zoho/CRM notification -> support assistant calls later -> gathers data -> checks report -> decides can/cannot help -> books discovery call or rejects.
-
-Twin workflow:
-
-Website form copy -> automated enrichment/qualification -> report retrieval or guided upload -> eligibility decision -> draft rejection or booking action -> compare with support assistant decision.
-
-Shadow mode output:
-
-- The twin says qualified/not qualified.
-- The human says qualified/not qualified.
-- Differences are logged.
-- No customer-facing action happens yet.
-
-Pilot output:
-
-- A small approved subset is routed automatically.
-- Humans monitor every action.
-- Stop conditions are active.
+The live process may route an inquiry through inboxes, spreadsheets, a CRM, or a dispatcher. The proposed process can receive a copy of the same inquiry, recommend ownership and the next step, then compare its output with what the team actually did. No customer-facing action occurs in shadow mode.
 
 ## Promotion Gates
 
-A twin is ready to move toward live implementation only when all gates pass:
+- Accuracy or business outcome meets the defined threshold.
+- The process is materially faster or removes meaningful work.
+- Common cases are covered and exceptions route safely.
+- No serious customer, employee, compliance, security, or data failure occurs.
+- The target KPI improves or the leading evidence is strong enough for the planned pilot.
+- Independent review and required tests pass.
+- The rollback path has been exercised.
+- Required owner approval is recorded before live impact.
 
-- Accuracy: twin matches or improves on human/current decisions.
-- Speed: twin is materially faster.
-- Safety: no serious compliance, customer, data, or operational failures.
-- Coverage: twin handles the common cases and routes exceptions to humans.
-- KPI lift: target KPI improves or is credibly expected to improve.
-- Eval: independent evaluator passes it.
-- Test: QA simulation/shadow/pilot passes it.
-- Rollback: stop/revert path is clear.
-- Owner approval: required for live external/customer-impacting migration.
+## Sample Thresholds
 
-## Suggested Evidence Thresholds
+These are starting points, not universal rules:
 
-Use these defaults unless the initiative defines better ones:
+| Risk                          |                   Shadow evidence | Pilot evidence | Promotion standard                                    |
+| ----------------------------- | --------------------------------: | -------------: | ----------------------------------------------------- |
+| Low internal workflow         |                       10-20 cases |     5-10 cases | No critical errors; same or better quality            |
+| Medium operating workflow     |                       25-50 cases |    10-25 cases | 90%+ agreement or a better measured outcome           |
+| Customer-facing workflow      |                      50-100 cases |    25-50 cases | Safe exception routing and no severe errors           |
+| Sensitive or revenue-critical | One representative business cycle |         Staged | Independent review, proven rollback, and KPI evidence |
 
-| Risk Level | Minimum Shadow Runs | Minimum Pilot Runs | Promotion Standard |
-| --- | ---: | ---: | --- |
-| Low internal workflow | 10-20 | 5-10 | No critical errors, faster or same quality |
-| Medium operational workflow | 25-50 | 10-25 | 90%+ agreement or better outcome, no critical errors |
-| Customer-facing workflow | 50-100 | 25-50 | 95%+ agreement on routine cases, all exceptions routed safely |
-| Compliance/data-sensitive workflow | 100+ | 25-50 with human monitoring | Compliance pass, human review of edge cases, no severe errors |
-| Revenue-critical workflow | 100+ or one full business cycle | staged rollout | KPI lift or strong leading indicators, rollback proven |
+Time-based outcomes still require time. Sales changes should normally cover at least two representative sales cycles; campaigns must allow time for responses and complaints; content and search changes may require months.
 
-## Time-Based Criteria
+## Outcomes
 
-Some workflows need time, not just count.
-
-Examples:
-
-- Email campaigns need enough days for replies, bounces, complaints, and unsubscribes.
-- Lead routing needs enough time to observe show rate and close rate.
-- SEO needs weeks/months for indexing and rankings.
-- Referral nurture needs enough time to measure reactivation.
-
-Default:
-
-- Fast workflows: at least 3-7 days of live observation.
-- Sales/lead workflows: at least 2 full sales cycles or 25-50 pilot leads.
-- Email/outreach: at least 7-14 days after send.
-- SEO/content: at least 30-90 days for performance judgment.
-
-## Stop Conditions
-
-Stop the twin or pilot if:
-
-- Compliance risk appears.
-- Customers receive wrong or harmful communication.
-- Sensitive data is mishandled.
-- Error rate exceeds threshold.
-- Human override queue backs up.
-- Complaints increase.
-- KPI degradation is severe.
-- Tool/API behavior is unreliable.
-
-## Decision Outcomes
-
-- Keep shadowing.
-- Revise twin.
-- Run pilot.
-- Expand pilot.
-- Ship live.
-- Reject and archive.
-- Escalate for human/legal/accounting/HR review.
+- Continue collecting evidence
+- Revise the proposed workflow
+- Move to a small pilot
+- Expand the pilot
+- Approve staged release
+- Stop and archive the result
+- Escalate for human, legal, accounting, HR, security, or compliance review

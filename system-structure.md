@@ -1,132 +1,33 @@
 # System Structure
 
-## Mental Model
+BusinessOS is a generic core deployed as one isolated VM per company. The company-specific shape comes from private instance configuration, connected evidence, and the observed business model. It does not come from industry assumptions embedded in the repository.
 
-The Google Drive data room stores source documents.
+The complete architecture is maintained as Mermaid in `docs/architecture/businessos-general.mmd`.
 
-The Business Pod stores operating memory and execution control.
+## Three Product Layers
 
-Hermes uses this pod to understand the business, coordinate agents, propose work, request approval, execute approved tickets, and report outcomes.
+1. **Business intelligence:** evidence ledger, living business model, underwriting, risks, scaling plan, projections, and missing capability detection.
+2. **Operating desk:** a plain-language dashboard for the owner, partner, and later scoped manager or employee views.
+3. **Hermes execution loop:** research, recommendation, approval, isolated build, independent review, proof, release, measurement, and learning.
 
-## Default Flow
+## Stage Behavior
 
-```mermaid
-flowchart TB
-    START["Business Acquired"] --> ROOM["Create Google Drive Data Room"]
-    ROOM --> INGEST["Researcher Ingests Data"]
-    INGEST --> QUESTIONS["Targeted Questions to Owner / Employees"]
-    QUESTIONS --> UNDERWRITE["Underwriting + Baseline Report"]
-    UNDERWRITE --> BOTTLENECKS["Find Bottlenecks"]
-    BOTTLENECKS --> CGO["CGO Builds Scaling Plan"]
-    CGO --> TICKETS["Convert Plan into Tickets"]
-    TICKETS --> REVIEW["You + Partner Review"]
-    REVIEW --> A["Approve"]
-    REVIEW --> P["Postpone"]
-    REVIEW --> R["Reject"]
-    A --> ACCESS["Orchestrator Requests Needed Access"]
-    ACCESS --> BUILD["Executor Builds / Changes / Automates"]
-    BUILD --> COMPLIANCE["Compliance Review if Needed"]
-    COMPLIANCE --> DEPLOY["Deploy"]
-    DEPLOY --> MEASURE["Measure Change-Specific KPI"]
-    MEASURE --> REPORT["Weekly / Bi-weekly Report"]
-    REPORT --> TICKETS
-    P --> BACKLOG["Backlog"]
-    R --> ARCHIVE["Archived with Reason"]
-```
+### Pre-acquisition
 
-## Employee Signal Flow
+BusinessOS works read-only by default. It maps the evidence, reconstructs and reconciles the business, produces a professional acquisition write-up, identifies decision-changing gaps, and drafts the first post-close plan.
 
-```mermaid
-flowchart TB
-    EMP1["Employee A"] --> EA1["Employee A Agent"]
-    EMP2["Employee B"] --> EA2["Employee B Agent"]
-    EMP3["Employee C"] --> EA3["Employee C Agent"]
-    EMP4["Employee D"] --> EA4["Employee D Agent"]
-    EA1 --> IM["iMessage via Sendblue"]
-    EA2 --> IM
-    EA3 --> IM
-    EA4 --> IM
-    IM --> INBOX["Employee Feedback Inbox"]
-    INBOX --> CLASSIFY["Classify Feedback"]
-    CLASSIFY --> BUG["Bug / Broken Process"]
-    CLASSIFY --> IDEA["Suggestion"]
-    CLASSIFY --> FRICTION["Employee Friction"]
-    CLASSIFY --> CUSTOMER["Customer Issue"]
-    CLASSIFY --> RISK["Risk / Compliance Issue"]
-    BUG --> SCORE["Score Impact / Difficulty / Risk / Cost"]
-    IDEA --> SCORE
-    FRICTION --> SCORE
-    CUSTOMER --> SCORE
-    RISK --> SCORE
-    SCORE --> BIWEEKLY["Bi-weekly Strategic Change Review"]
-    BIWEEKLY --> APPROVE["Approve"]
-    BIWEEKLY --> POSTPONE["Postpone"]
-    BIWEEKLY --> REJECT["Reject"]
-    APPROVE --> ORCH["Orchestrator"]
-    POSTPONE --> BACKLOG["Backlog"]
-    REJECT --> ARCHIVE["Archived with Reason"]
-    ORCH --> NEEDS["Request API Keys / Access / Info"]
-    NEEDS --> YOU["You + Partner"]
-```
+### Post-acquisition
 
-## Strategic Change Review Output
+BusinessOS keeps the baseline current, finds risks and inefficiencies, identifies missing capabilities, researches current options and costs, proposes costed initiatives, and executes approved work through the quality lifecycle.
 
-The bi-weekly output is a Strategic Change Review, not just an employee feedback queue.
+## Instance Boundary
 
-It should include:
+- One business per VM.
+- One private `business.yaml` and `.env` per VM.
+- No cross-business memory, credentials, or runtime data.
+- Credentials are entered manually for now and are never shown in the dashboard.
+- New integrations start read-only and receive write authority only for approved work.
 
-1. Employee feedback summary.
-2. Customer friction summary.
-3. Operational bottlenecks.
-4. Growth bottlenecks.
-5. Marketing opportunities.
-6. Sales opportunities.
-7. SEO opportunities.
-8. Outreach opportunities.
-9. Automation opportunities.
-10. Fundamental changes.
-11. Non-fundamental changes.
-12. Agent/profile creation proposals.
-13. Approved/postponed/rejected queue.
-14. KPI movement since last review.
-15. What the orchestrator needs from you.
-16. Operational inefficiency radar findings.
-17. Automation/system-building opportunities.
-18. Documented anomalies and recurring patterns.
-19. Quality/eval status for active initiatives.
-20. Tool/API/permission blockers.
+## Proof Before Major Change
 
-## Fundamental Changes
-
-- Change pricing.
-- Change offer.
-- Change target customer.
-- Change sales process.
-- Add or remove service line.
-- Hire, fire, or restructure role.
-- Change core workflow.
-- Replace core software.
-- Change acquisition channel strategy.
-
-## Non-Fundamental Changes
-
-- Build dashboard.
-- Improve CRM flow.
-- Add email sequence.
-- Add SEO pages.
-- Improve intake form.
-- Add reporting.
-- Automate reminders.
-- Clean database.
-- Create SOP.
-- Improve employee utility.
-
-## Operating Systems
-
-Hermes should use:
-
-- `growth-system/` to detect and execute growth/automation initiatives.
-- `operations-system/` to find waste, inefficiencies, and automatable workflows.
-- `memory-system/` to document communications and signals.
-- `quality-system/` to evaluate, test, simulate, approve, ship, and monitor changes.
-- `intelligence-stack/` to run Edge Digital Twins, organizational drag scoring, sensing, and learning loops.
+BusinessOS selects historical backtesting, simulation, shadow mode, or a small pilot based on the evidence and risk. Direct launch is reserved for low-risk, reversible changes. Every initiative has a promotion gate, stop condition, rollback, and actual-versus-projected review.

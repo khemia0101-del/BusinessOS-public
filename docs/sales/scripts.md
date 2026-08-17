@@ -10,7 +10,7 @@ Source needed.
 
 ## Compliance Notes
 
-Sales scripts for credit repair services require review before scaling. Avoid unsupported guarantees, timelines, legal conclusions, and outcome promises.
+Sales scripts require industry-appropriate review before scaling. Avoid unsupported guarantees, timelines, legal conclusions, and outcome promises.
 
 ## Sections To Build
 

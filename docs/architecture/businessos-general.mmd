@@ -1,0 +1,199 @@
+flowchart TB
+    %% BusinessOS: one isolated VM per business
+
+    subgraph INSTANCE["One BusinessOS instance · one business · one VM"]
+        direction TB
+
+        subgraph PRIVATE["Private instance boundary"]
+            CONFIG["business.yaml<br/>identity · stage · sources · approvals"]
+            SECRETS[".env<br/>credentials entered manually by owner"]
+            RUNTIME["Private runtime data<br/>indexes · reports · tickets · audit · memory"]
+        end
+
+        subgraph SOURCES["Business evidence"]
+            direction LR
+            DOCS["Data room & documents<br/>Drive · SharePoint · Notion"]
+            FINANCE["Finance<br/>QuickBooks · bank · Plaid · payroll · tax"]
+            SALES["Customers & revenue<br/>CRM · inboxes · calls · estimates · jobs"]
+            MEETINGS["Meetings & people<br/>Zoom · calendars · employee signals"]
+            ANALYTICS["Analytics<br/>site · ads · search · content · product · social"]
+            OPS["Operations<br/>tasks · scheduling · delivery · support · field systems"]
+            EXTERNAL["External research<br/>market · competitors · tools · pricing · rules"]
+        end
+
+        subgraph CONNECT["Connection and evidence layer"]
+            CONNECTORS["Provider adapters<br/>read-only first · health · sync state"]
+            NORMALIZE["Normalize and classify<br/>entity · period · owner · sensitivity"]
+            LEDGER["Evidence ledger<br/>source ID · lineage · freshness · reliability"]
+            RECONCILE["Conflict and reconciliation queue"]
+        end
+
+        subgraph MODEL["Living business model"]
+            FACTS["Verified facts"]
+            ASSUMPTIONS["Assumptions and confidence"]
+            METRICS["Financial and operating baseline"]
+            GRAPH["Customers · people · systems · workflows · dependencies"]
+            GAPS["Missing evidence and access"]
+            SIGNALS["Risks · anomalies · inefficiencies · opportunities"]
+        end
+
+        subgraph HERMES["Hermes operating core"]
+            ORCH["Orchestrator<br/>stage · routing · priorities · approval boundary"]
+            RESEARCHER["Researcher<br/>sources and market"]
+            EVALUATOR["Evaluator<br/>underwriting and reconciliation"]
+            CGO["CGO<br/>scaling and capability gaps"]
+            COMPLIANCE["Compliance<br/>legal · financial · privacy · people · claims"]
+            QA["QA Tester<br/>tests · simulation review · promotion gates"]
+            EMPLOYEE["Approved employee profiles<br/>questions · friction · operating signal"]
+            EXECUTOR["Temporary executor<br/>one approved build scope"]
+        end
+
+        subgraph PREACQ["Pre-acquisition intelligence"]
+            COVERAGE["Evidence coverage by decision domain"]
+            UNDERWRITE["Underwriting engine<br/>rebuild · reconcile · normalize · stress test"]
+            UWOUT["Professional acquisition write-up"]
+            UWRISK["Risk register and deal protections"]
+            REQUESTS["Seller questions and evidence requests"]
+            DECISION["Proceed · conditions · pause · decline"]
+        end
+
+        subgraph POSTACQ["Post-acquisition operating plan"]
+            BASELINE["Day-one baseline"]
+            CAPABILITY["Capability gap analysis<br/>example: no CRM"]
+            OPTIONS["Current options and pricing<br/>fit · setup · monthly · time · lock-in"]
+            PLAN["Scaling plan<br/>0-30 · 31-100 · 4-12m · years 2-3"]
+            PROJECTIONS["Integrated projections<br/>baseline · downside · base · upside"]
+            INITIATIVES["Costed initiatives<br/>actions · tools · channels · owners · KPIs"]
+        end
+
+        subgraph DESK["Owner operating desk · white mode · plain language"]
+            OVERVIEW["Overview<br/>what matters now"]
+            UWVIEW["Underwriting<br/>confidence · gaps · risks"]
+            SCALEVIEW["Scaling plan<br/>costs · projections · actions"]
+            WORKVIEW["Work & decisions<br/>impact · proof · rollback"]
+            INTEGRATIONS["Integrations<br/>configured · healthy · needs attention"]
+            PEOPLEVIEW["Scoped manager and employee views"]
+        end
+
+        subgraph LIFECYCLE["Recommendation-to-result lifecycle"]
+            FOUND["Found"] --> RESEARCHED["Researched"] --> PROPOSED["Proposed"]
+            PROPOSED --> APPROVAL{"Material approval or access needed?"}
+            APPROVAL -->|"No"| BUILD["Build in isolated branch or environment"]
+            APPROVAL -->|"Yes"| OWNER["Owner / partner decision"]
+            OWNER -->|"Reject"| CLOSED["Close with reason"]
+            OWNER -->|"Postpone"| BACKLOG["Backlog with trigger"]
+            OWNER -->|"Approve"| ACCESS["Owner configures access in .env"]
+            ACCESS --> BUILD
+            BUILD --> REVIEW["Independent review and tests"]
+            REVIEW --> SENSITIVE{"Sensitive or regulated?"}
+            SENSITIVE -->|"Yes"| CREVIEW["Compliance review"]
+            SENSITIVE -->|"No"| PROOF
+            CREVIEW --> PROOF{"Cheapest credible proof"}
+            PROOF -->|"Past activity is enough"| BACKTEST["Historical backtest"]
+            PROOF -->|"Inputs can be bounded"| SIMULATION["Simulation"]
+            PROOF -->|"Compare without action"| SHADOW["Shadow mode"]
+            PROOF -->|"Real behavior is required"| PILOT["Small approved pilot"]
+            PROOF -->|"Low-risk and reversible"| RELEASE["Staged release"]
+            BACKTEST --> GATE{"Promotion gate passed?"}
+            SIMULATION --> GATE
+            SHADOW --> GATE
+            PILOT --> GATE
+            GATE -->|"No"| REVISE["Revise or stop"]
+            REVISE --> RESEARCHED
+            GATE -->|"Yes"| FINALAPP{"Final live approval required?"}
+            FINALAPP -->|"Yes"| OWNER
+            FINALAPP -->|"No"| RELEASE
+            RELEASE --> MEASURE["Measure actual vs baseline and projection"]
+            MEASURE --> LEARN["Report · audit · memory · model update"]
+            LEARN --> FOUND
+        end
+    end
+
+    DOCS --> CONNECTORS
+    FINANCE --> CONNECTORS
+    SALES --> CONNECTORS
+    MEETINGS --> CONNECTORS
+    ANALYTICS --> CONNECTORS
+    OPS --> CONNECTORS
+    EXTERNAL --> CONNECTORS
+    CONFIG --> CONNECTORS
+    SECRETS -.->|"permission only; never shown"| CONNECTORS
+    CONNECTORS --> NORMALIZE --> LEDGER
+    LEDGER --> RECONCILE
+    LEDGER --> FACTS
+    RECONCILE --> FACTS
+    FACTS --> METRICS
+    FACTS --> GRAPH
+    LEDGER --> GAPS
+    FACTS --> SIGNALS
+    ASSUMPTIONS --> SIGNALS
+    METRICS --> SIGNALS
+    GRAPH --> SIGNALS
+
+    CONFIG --> ORCH
+    LEDGER --> ORCH
+    ORCH --> RESEARCHER
+    ORCH --> EVALUATOR
+    ORCH --> CGO
+    ORCH --> COMPLIANCE
+    ORCH --> QA
+    ORCH --> EMPLOYEE
+    ORCH --> EXECUTOR
+    RESEARCHER --> LEDGER
+    EMPLOYEE --> LEDGER
+
+    FACTS --> COVERAGE
+    ASSUMPTIONS --> COVERAGE
+    GAPS --> COVERAGE
+    COVERAGE --> UNDERWRITE
+    METRICS --> UNDERWRITE
+    GRAPH --> UNDERWRITE
+    EVALUATOR --> UNDERWRITE
+    COMPLIANCE --> UNDERWRITE
+    UNDERWRITE --> UWOUT
+    UNDERWRITE --> UWRISK
+    UNDERWRITE --> REQUESTS
+    UWOUT --> DECISION
+    UWRISK --> DECISION
+
+    UNDERWRITE --> BASELINE
+    SIGNALS --> CAPABILITY
+    CGO --> CAPABILITY
+    CAPABILITY --> OPTIONS --> INITIATIVES
+    BASELINE --> PLAN
+    INITIATIVES --> PLAN
+    PLAN --> PROJECTIONS
+    PROJECTIONS --> INITIATIVES
+
+    DECISION --> UWVIEW
+    COVERAGE --> UWVIEW
+    PLAN --> SCALEVIEW
+    PROJECTIONS --> SCALEVIEW
+    INITIATIVES --> FOUND
+    FOUND --> WORKVIEW
+    CONNECTORS --> INTEGRATIONS
+    SIGNALS --> OVERVIEW
+    GAPS --> OVERVIEW
+    EMPLOYEE --> PEOPLEVIEW
+    OVERVIEW --> ORCH
+    UWVIEW --> ORCH
+    SCALEVIEW --> ORCH
+    WORKVIEW --> ORCH
+    RUNTIME --> DESK
+    LEARN --> RUNTIME
+    MEASURE --> METRICS
+    EXECUTOR --> BUILD
+    QA --> REVIEW
+    COMPLIANCE --> CREVIEW
+
+    classDef private fill:#f4f5f7,stroke:#737b86,color:#15171a;
+    classDef intelligence fill:#eef4ff,stroke:#6a8fd7,color:#14233c;
+    classDef decision fill:#fff6df,stroke:#b58a2d,color:#3f300b;
+    classDef action fill:#edf8f1,stroke:#5a9c73,color:#12351f;
+    classDef risk fill:#fff0f1,stroke:#c26b76,color:#4c1720;
+
+    class CONFIG,SECRETS,RUNTIME private;
+    class LEDGER,FACTS,ASSUMPTIONS,METRICS,GRAPH,GAPS,SIGNALS,COVERAGE,UNDERWRITE,UWOUT,BASELINE,CAPABILITY,OPTIONS,PLAN,PROJECTIONS intelligence;
+    class DECISION,APPROVAL,OWNER,PROPOSED,FINALAPP decision;
+    class BUILD,REVIEW,BACKTEST,SIMULATION,SHADOW,PILOT,RELEASE,MEASURE,LEARN action;
+    class UWRISK,SENSITIVE,CREVIEW,CLOSED risk;

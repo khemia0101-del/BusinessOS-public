@@ -1,0 +1,262 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://businessos.local/schemas/scaling-plan.schema.json",
+  "title": "BusinessOS Scaling Plan",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "plan_id",
+    "business_id",
+    "as_of_date",
+    "status",
+    "horizons",
+    "baseline",
+    "initiatives",
+    "projections"
+  ],
+  "properties": {
+    "plan_id": { "type": "string", "minLength": 1 },
+    "business_id": { "type": "string", "minLength": 1 },
+    "as_of_date": { "type": "string", "format": "date" },
+    "status": {
+      "enum": [
+        "working",
+        "ready_for_review",
+        "approved",
+        "active",
+        "superseded"
+      ]
+    },
+    "horizons": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["days_0_30", "days_31_100", "months_4_12", "years_2_3"],
+      "properties": {
+        "days_0_30": { "$ref": "#/$defs/horizon" },
+        "days_31_100": { "$ref": "#/$defs/horizon" },
+        "months_4_12": { "$ref": "#/$defs/horizon" },
+        "years_2_3": { "$ref": "#/$defs/horizon" }
+      }
+    },
+    "baseline": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/metric" }
+    },
+    "capability_gaps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "capability",
+          "problem",
+          "evidence",
+          "minimum_requirement",
+          "options",
+          "recommendation"
+        ],
+        "properties": {
+          "id": { "type": "string" },
+          "capability": { "type": "string" },
+          "problem": { "type": "string" },
+          "evidence": { "type": "array", "items": { "type": "string" } },
+          "minimum_requirement": { "type": "string" },
+          "options": {
+            "type": "array",
+            "items": { "$ref": "#/$defs/toolOption" }
+          },
+          "recommendation": { "type": "string" }
+        }
+      }
+    },
+    "initiatives": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/initiative" }
+    },
+    "projections": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "scenario",
+          "period",
+          "revenue",
+          "gross_profit",
+          "operating_expense",
+          "cash_balance",
+          "assumption_ids"
+        ],
+        "properties": {
+          "scenario": { "enum": ["baseline", "downside", "base", "upside"] },
+          "period": { "type": "string" },
+          "revenue": { "type": "number" },
+          "gross_profit": { "type": "number" },
+          "operating_expense": { "type": "number" },
+          "cash_balance": { "type": "number" },
+          "assumption_ids": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "assumptions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "statement", "basis", "confidence"],
+        "properties": {
+          "id": { "type": "string" },
+          "statement": { "type": "string" },
+          "basis": { "type": "string" },
+          "confidence": { "enum": ["high", "medium", "low"] },
+          "source_ids": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "horizon": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["objective", "outcomes"],
+      "properties": {
+        "objective": { "type": "string" },
+        "outcomes": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "metric": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "value",
+        "unit",
+        "as_of_date",
+        "confidence",
+        "source_ids"
+      ],
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "value": { "type": ["number", "string", "null"] },
+        "unit": { "type": "string" },
+        "as_of_date": { "type": "string", "format": "date" },
+        "confidence": { "enum": ["high", "medium", "low"] },
+        "source_ids": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "toolOption": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "fit",
+        "setup_cost",
+        "monthly_cost",
+        "implementation_days",
+        "pricing_source",
+        "researched_at"
+      ],
+      "properties": {
+        "name": { "type": "string" },
+        "fit": { "type": "string" },
+        "setup_cost": { "type": "number", "minimum": 0 },
+        "monthly_cost": { "type": "number", "minimum": 0 },
+        "implementation_days": { "type": "integer", "minimum": 0 },
+        "pricing_source": { "type": "string" },
+        "researched_at": { "type": "string", "format": "date" }
+      }
+    },
+    "initiative": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "title",
+        "problem",
+        "objective",
+        "owner",
+        "state",
+        "actions",
+        "channels",
+        "costs",
+        "expected_impact",
+        "proof",
+        "success_metrics",
+        "stop_conditions",
+        "rollback"
+      ],
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "problem": { "type": "string" },
+        "objective": { "type": "string" },
+        "owner": { "type": "string" },
+        "state": {
+          "enum": [
+            "found",
+            "researched",
+            "proposed",
+            "approved",
+            "building",
+            "testing",
+            "ready",
+            "live",
+            "measuring",
+            "stopped"
+          ]
+        },
+        "actions": { "type": "array", "items": { "type": "string" } },
+        "tools": { "type": "array", "items": { "type": "string" } },
+        "channels": { "type": "array", "items": { "type": "string" } },
+        "dependencies": { "type": "array", "items": { "type": "string" } },
+        "costs": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["currency", "one_time", "monthly", "internal_hours"],
+          "properties": {
+            "currency": { "type": "string", "pattern": "^[A-Z]{3}$" },
+            "one_time": { "type": "number", "minimum": 0 },
+            "monthly": { "type": "number", "minimum": 0 },
+            "internal_hours": { "type": "number", "minimum": 0 }
+          }
+        },
+        "expected_impact": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["base", "downside", "upside", "calculation"],
+          "properties": {
+            "base": { "type": "number" },
+            "downside": { "type": "number" },
+            "upside": { "type": "number" },
+            "calculation": { "type": "string" },
+            "payback_months": { "type": ["number", "null"], "minimum": 0 }
+          }
+        },
+        "proof": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["method", "plan", "promotion_gate"],
+          "properties": {
+            "method": {
+              "enum": [
+                "direct_launch",
+                "historical_backtest",
+                "simulation",
+                "shadow_mode",
+                "pilot"
+              ]
+            },
+            "plan": { "type": "string" },
+            "promotion_gate": { "type": "string" }
+          }
+        },
+        "success_metrics": { "type": "array", "items": { "type": "string" } },
+        "stop_conditions": { "type": "array", "items": { "type": "string" } },
+        "rollback": { "type": "string" }
+      }
+    }
+  }
+}

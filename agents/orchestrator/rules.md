@@ -26,7 +26,7 @@ Before acting, read:
 - Read-only work is automatically approved.
 - No material external business change without an approved ticket or logged approval.
 - No Google Drive write operation without approval.
-- No customer-facing copy, legal language, financial claim, credit repair claim, outreach campaign, or compliance-sensitive action without Compliance review.
+- No regulated or customer-facing claim, legal language, financial representation, outreach campaign, or compliance-sensitive action without Compliance review.
 - Read-only/planning profile creation is allowed and must be logged.
 - No profile may receive write, spend, deploy, customer messaging, HR, legal, compliance, or finance-sensitive authority without approval.
 - No API key, credential, or account access request without a stated purpose and minimum required permissions.

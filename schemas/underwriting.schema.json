@@ -1,0 +1,247 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://businessos.local/schemas/underwriting.schema.json",
+  "title": "BusinessOS Underwriting Report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "report_id",
+    "business_id",
+    "as_of_date",
+    "status",
+    "recommendation",
+    "evidence_coverage",
+    "financial_baseline",
+    "risks",
+    "missing_evidence",
+    "sources"
+  ],
+  "properties": {
+    "report_id": { "type": "string", "minLength": 1 },
+    "business_id": { "type": "string", "minLength": 1 },
+    "as_of_date": { "type": "string", "format": "date" },
+    "status": {
+      "enum": ["working", "decision_ready_with_exceptions", "final"]
+    },
+    "recommendation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["decision", "summary", "conditions", "confidence"],
+      "properties": {
+        "decision": {
+          "enum": ["proceed", "proceed_with_conditions", "pause", "decline"]
+        },
+        "summary": { "type": "string", "minLength": 1 },
+        "conditions": { "type": "array", "items": { "type": "string" } },
+        "confidence": { "$ref": "#/$defs/confidence" }
+      }
+    },
+    "evidence_coverage": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["domain", "confidence", "material_gaps"],
+        "properties": {
+          "domain": { "type": "string" },
+          "confidence": { "$ref": "#/$defs/confidence" },
+          "material_gaps": { "type": "array", "items": { "type": "string" } },
+          "source_ids": { "$ref": "#/$defs/sourceIds" }
+        }
+      }
+    },
+    "financial_baseline": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "currency",
+        "periods",
+        "normalization_adjustments",
+        "reconciliations"
+      ],
+      "properties": {
+        "currency": { "type": "string", "pattern": "^[A-Z]{3}$" },
+        "periods": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "label",
+              "revenue",
+              "gross_profit",
+              "reported_earnings",
+              "normalized_earnings",
+              "source_ids"
+            ],
+            "properties": {
+              "label": { "type": "string" },
+              "revenue": { "type": "number" },
+              "gross_profit": { "type": ["number", "null"] },
+              "reported_earnings": { "type": "number" },
+              "normalized_earnings": { "type": "number" },
+              "operating_cash_flow": { "type": ["number", "null"] },
+              "source_ids": { "$ref": "#/$defs/sourceIds" }
+            }
+          }
+        },
+        "normalization_adjustments": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "label",
+              "amount",
+              "classification",
+              "accepted",
+              "rationale",
+              "source_ids"
+            ],
+            "properties": {
+              "label": { "type": "string" },
+              "amount": { "type": "number" },
+              "classification": {
+                "enum": [
+                  "owner_compensation",
+                  "nonrecurring",
+                  "related_party",
+                  "discretionary",
+                  "replacement_cost",
+                  "under_recorded_expense",
+                  "unsupported"
+                ]
+              },
+              "accepted": { "type": "boolean" },
+              "rationale": { "type": "string" },
+              "source_ids": { "$ref": "#/$defs/sourceIds" }
+            }
+          }
+        },
+        "reconciliations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "label",
+              "source_a",
+              "source_b",
+              "difference",
+              "status"
+            ],
+            "properties": {
+              "label": { "type": "string" },
+              "source_a": { "type": "string" },
+              "source_b": { "type": "string" },
+              "difference": { "type": "number" },
+              "explanation": { "type": "string" },
+              "status": { "enum": ["reconciled", "explained", "open"] }
+            }
+          }
+        }
+      }
+    },
+    "scenarios": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "assumptions",
+          "revenue",
+          "normalized_earnings",
+          "cash_need"
+        ],
+        "properties": {
+          "name": { "enum": ["base", "downside", "severe_downside", "upside"] },
+          "assumptions": { "type": "array", "items": { "type": "string" } },
+          "revenue": { "type": "number" },
+          "normalized_earnings": { "type": "number" },
+          "cash_need": { "type": "number" },
+          "debt_service_coverage": { "type": ["number", "null"] }
+        }
+      }
+    },
+    "risks": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/risk" }
+    },
+    "missing_evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["request", "reason", "materiality", "status"],
+        "properties": {
+          "request": { "type": "string" },
+          "reason": { "type": "string" },
+          "materiality": { "enum": ["critical", "material", "supporting"] },
+          "status": {
+            "enum": ["not_requested", "requested", "received", "waived"]
+          }
+        }
+      }
+    },
+    "sources": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/source" }
+    }
+  },
+  "$defs": {
+    "confidence": { "enum": ["high", "medium", "low"] },
+    "sourceIds": {
+      "type": "array",
+      "items": { "type": "string" },
+      "uniqueItems": true
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "title",
+        "kind",
+        "location",
+        "retrieved_at",
+        "reliability"
+      ],
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "kind": { "type": "string" },
+        "location": { "type": "string" },
+        "period": { "type": ["string", "null"] },
+        "retrieved_at": { "type": "string", "format": "date-time" },
+        "reliability": {
+          "enum": ["primary", "derived", "seller_statement", "external"]
+        }
+      }
+    },
+    "risk": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "title",
+        "category",
+        "likelihood",
+        "impact",
+        "evidence",
+        "mitigation"
+      ],
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "category": { "type": "string" },
+        "likelihood": { "enum": ["low", "medium", "high"] },
+        "impact": { "enum": ["low", "medium", "high", "critical"] },
+        "evidence": { "$ref": "#/$defs/sourceIds" },
+        "mitigation": { "type": "string" },
+        "deal_protection": { "type": ["string", "null"] }
+      }
+    }
+  }
+}

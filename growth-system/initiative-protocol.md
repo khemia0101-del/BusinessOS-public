@@ -1,5 +1,7 @@
 # Initiative Protocol
 
+The canonical lifecycle is `docs/execution/initiative-lifecycle.md`. This file defines the build detail inside that lifecycle.
+
 ## Purpose
 
 Turn an approved growth or automation idea into a working internal system.
@@ -14,7 +16,7 @@ Turn an approved growth or automation idea into a working internal system.
 6. Design the workflow.
 7. Build utilities/scripts if needed.
 8. Run internal tests.
-9. Run shadow-mode or small pilot.
+9. Select historical backtest, simulation, shadow mode, small pilot, or direct low-risk release.
 10. Review with zero-trust evals.
 11. Approve external action.
 12. Launch in batches.
