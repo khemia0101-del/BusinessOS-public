@@ -1,120 +1,103 @@
-# Azure VM Test Deployment
+# Single-Business VM Deployment
 
-## Current Local CLI Status
+## Boundary
 
-Observed on 2026-05-27:
+Deploy one BusinessOS instance per business. Each VM receives its own private `instance/business.yaml`, `.env`, runtime data, integrations, audit trail, and dashboard. Do not connect one instance to another company's sources.
 
-- Azure CLI is installed and logged in.
-- Logged-in user: `Eli@Queenventures.onmicrosoft.com`
-- CLI shows a tenant-level account.
-- No usable subscription is visible in `az account list`.
-- `az group list` fails with `SubscriptionNotFound`.
+## Recommended Starting VM
 
-Conclusion: this login cannot deploy an Azure VM yet. A subscription must be attached or selected.
-
-## Permission Check Commands
-
-```powershell
-az account list --output table
-az account show --output json
-az group list --output table
-```
-
-If no subscription appears, fix billing/subscription access first.
-
-If a subscription appears, select it:
-
-```powershell
-az account set --subscription "<subscription id or name>"
-```
-
-Then verify VM permissions:
-
-```powershell
-az provider show --namespace Microsoft.Compute --query "registrationState" --output tsv
-az provider show --namespace Microsoft.Network --query "registrationState" --output tsv
-az provider show --namespace Microsoft.Storage --query "registrationState" --output tsv
-az role assignment list --assignee "$(az ad signed-in-user show --query id -o tsv)" --all --output table
-```
-
-Needed permissions:
-
-- Create resource group or use an existing one.
-- Create VM.
-- Create NIC/public IP/network security group.
-- Create disk/storage resources.
-- Assign or use SSH key.
-
-Usually this means `Owner` or `Contributor` on the subscription or target resource group.
-
-## Recommended Test VM
-
-```txt
+```text
 Ubuntu 24.04 LTS
-Standard B2s minimum
 2 vCPU
-4 GB RAM
+4-8 GB RAM
 Premium SSD
-Static public IP
-Ports: 22, 80, 443
+Inbound: 22 through a restricted admin path; 80/443 through the proxy
 ```
 
-For browser automation or multiple workers:
+Increase memory for browser automation, local models, or concurrent data processing.
 
-```txt
-Standard B2ms or D2s v5
-2 vCPU
-8 GB RAM
+## Runtime
+
+- Node.js 22 for the Next.js dashboard (minimum supported: 20.9)
+- Python 3.12 or newer for optional integration gateways and report validation
+- Caddy or Nginx for HTTPS and routing
+- systemd or containers for process supervision
+- Encrypted backup of private instance data and audit records
+- Optional private admin network such as Tailscale
+
+The dashboard is built with `output: "standalone"` so its production artifact can run without the repository or development dependencies.
+
+## Suggested Paths
+
+```text
+/opt/businessos/core              generic checked-out repository
+/opt/businessos/core/instance     ignored private configuration and roster
+/opt/businessos/core/.env         secrets, readable only by the service user
+/var/lib/businessos               indexes, records, reports, and working state
+/var/lib/businessos/communications metadata-only gateway logs
 ```
 
-## Suggested Runtime
+## Deployment Steps
 
-- Docker / Docker Compose.
-- Caddy or Nginx for HTTPS.
-- systemd services for Hermes and webhook workers.
-- Telegram webhook endpoint.
-- Sendblue/iMessage webhook endpoint.
-- Tailscale optional for private admin access.
+1. Provision a dedicated VM and service account.
+2. Clone the approved BusinessOS release into `/opt/businessos/core`.
+3. Copy `instance/business.example.yaml` to `/opt/businessos/core/instance/business.yaml` and root `employees.json` to `/opt/businessos/core/instance/employees.json`. Populate only these private copies.
+4. Copy `.env.example` to `/opt/businessos/core/.env`. Add credentials manually, set `BUSINESS_STAGE`, and restrict the file to the service user (mode `0600`).
+5. Install, build, and smoke-test `dashboard/` using `dashboard/README.md`.
+6. Configure the reverse proxy and TLS.
+7. Run the dashboard and optional workers under separate restricted services.
+8. Verify `/api/health`, backup, log redaction, and restart behavior.
+9. Connect sources read-only first.
+10. Record the instance and release in the deployment audit.
 
-## Webhook Shape
+## Process Configuration
 
-```txt
-https://os.yourdomain.com/webhooks/telegram
-https://os.yourdomain.com/webhooks/sendblue
-https://os.yourdomain.com/webhooks/events
+Neither the Python gateway nor a dashboard launched from `dashboard/` automatically loads the root `.env`. Configure the service manager to inject it. Use the same stage setting for Hermes, the gateway, and the dashboard. Never dump the full environment into an agent session or log.
+
+Example dashboard systemd service, after creating the `businessos` service account and building the dashboard:
+
+```ini
+[Unit]
+Description=BusinessOS dashboard
+After=network.target
+
+[Service]
+User=businessos
+Group=businessos
+WorkingDirectory=/opt/businessos/core/dashboard
+EnvironmentFile=/opt/businessos/core/.env
+Environment=NODE_ENV=production
+Environment=HOSTNAME=127.0.0.1
+Environment=PORT=3000
+ExecStart=/usr/bin/node /opt/businessos/core/dashboard/.next/standalone/server.js
+Restart=on-failure
+UMask=0077
+NoNewPrivileges=true
+
+[Install]
+WantedBy=multi-user.target
 ```
 
-## Current Test Deployment
+Adjust the Node executable to its installed absolute path. The gateway service uses `WorkingDirectory=/opt/businessos/core`, the same `EnvironmentFile`, and `ExecStart=/usr/bin/python3 /opt/businessos/core/services/businessos_web.py`. Give it access only to its private roster, state directory, and the intended Hermes profile. Configure Hermes's service with the same repository working directory and environment file; verify its installed CLI and profile before enabling workers.
 
-Observed on 2026-05-27:
+When copying only the standalone dashboard artifact, keep the private environment file outside it and update the service's paths accordingly. Never bundle `.env`, the roster, or business evidence with the browser assets. The current dashboard needs no integration credentials; before real integrations are added, split service environments so each process receives only its required keys.
 
-```txt
-VM: hermes-telegram-vm
-Public IP: 4.151.184.237
-BusinessOS path: /opt/businessOS
-Public dashboard: http://4.151.184.237/oFpYcvDjUZ2TmaawGFCxUhJqTMYXRY8g
-Health: http://4.151.184.237/health
-Sendblue webhook: http://4.151.184.237/webhooks/sendblue
-```
+## Existing-VM Migration
 
-Current services:
+This release is not a drop-in replacement for the old CRR service. The legacy `/webhooks/sendblue` endpoint, public status page, and root employee-roster path have changed. Do not replace a live webhook service until a trusted provider adapter is configured and tested against `services/README.md`. Keep the previous release available for rollback; this repository merge does not deploy or migrate a VM.
 
-```txt
-hermes-gateway.service
-businessos-web.service
-```
+If an old installation uses `business.stage`, an employee-registry stage, or `post_acquisition`, have the owner confirm the current authority and migrate to the single `BUSINESS_STAGE` setting. Until then, stay read-only.
 
-`businessos-web.service` runs `services/businessos_web.py`, which serves the public status page and Sendblue webhook receiver/router.
+## Security Checks
 
-Sendblue webhook security:
+- `.env`, `instance/business.yaml`, and `instance/employees.json` are not committed or served.
+- Services run as non-root users with only the permissions they need.
+- Webhooks authenticate before payloads are stored or routed.
+- Logs redact authorization headers, tokens, customer payloads, and raw secrets.
+- Integration permissions start read-only and expand only for an approved initiative.
+- The dashboard sits behind authentication before any private business data is loaded.
+- Production changes have a release record and rollback path.
 
-- Sendblue must include the `sb-signing-secret` header.
-- The value must match `SENDBLUE_SECRET_KEY` from `/opt/businessOS/.env`.
-- Unauthorized requests are logged to `memory-system/communications/sendblue-webhook-rejected.jsonl`.
+## Health
 
-Routing:
-
-- Incoming Sendblue payloads are logged to `memory-system/communications/sendblue-webhook.jsonl`.
-- Sender phone numbers are normalized and matched against root `employees.json`.
-- If matched, the service creates a Hermes Kanban task on the `businessos-employees` board assigned to the employee `agent_id`.
-- If unmatched, the message is logged to `memory-system/communications/sendblue-unassigned.jsonl`.
+The dashboard exposes `GET /api/health`. Optional integration gateways expose their own health endpoint. Health responses may include instance ID, stage, service version, and sync timestamps, but never credentials or business records.

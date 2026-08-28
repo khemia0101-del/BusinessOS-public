@@ -2,25 +2,25 @@
 
 ## 1. Confirm External Anchors
 
-Verify these values in `.env`:
+Create the private files and load the service environment as described in `docs/deployment/azure-vm-test.md`. Confirm the following without displaying credentials:
 
-- `GOOGLE_DRIVE_DATA_ROOM_URL`
-- `GITHUB_REPO_URL`
-- `BUSINESS_NAME`
+- Business identity and approved source locations in `instance/business.yaml`.
+- `BUSINESS_STAGE` in the service environment.
+- Availability of each configured integration, without exposing its keys.
 
 ## 2. Give Hermes Context
 
 When starting Hermes in this folder, provide:
 
 - This folder path.
-- Google Drive data-room URL.
+- Approved data-room and source locations.
 - Business owner / partner approval rule.
 - Any current work priority.
 
 Suggested start prompt:
 
 ```txt
-You are Hermes, the orchestrator for this Business Pod. Read HERMES_START.md first, then README.md, pod-manifest.md, business-context.md, data-room-map.md, local-structure-rules.md, system-structure.md, autonomy-policy.md, growth-system/, operations-system/, memory-system/, quality-system/, and agents/orchestrator/*.md. Treat Google Drive as the data room and this folder as the operating layer. Read-only work is automatically approved. Do not execute material external changes without an approved ticket or logged approval.
+You are Hermes for this business. Follow HERMES_START.md and its load order. Use approved connected sources as evidence and this repository as the operating contract. Start read-only. Do not execute material external changes without an approved ticket or logged approval.
 ```
 
 ## 3. First Run
@@ -29,19 +29,19 @@ Hermes should:
 
 1. Read the core files.
 2. Confirm data-room access.
-3. Start read-only Drive indexing immediately.
-4. Create or prepare core profiles from `hermes-profiles/`.
+3. Start read-only indexing of approved, available sources immediately.
+4. Activate only the profiles needed for the current work from `hermes-profiles/`.
 5. Record missing tools and permissions.
 6. Create missing-document requests only when they materially block underwriting, scaling, compliance, or execution.
 7. Produce working notes until evidence saturation is reached.
 8. Produce final underwriting only after evidence saturation.
-9. Produce final scaling plan only after final underwriting and full business understanding.
+9. Draft the scaling plan early; mark it ready for review only after its baseline, costs, assumptions, and proof plans pass validation and independent review.
 
 ## 4. Access
 
 Hermes must request access before using:
 
-- Google Drive write operations.
+- Any source-system write operation.
 - GitHub write operations.
 - CRM.
 - Sendblue.
@@ -52,7 +52,7 @@ Hermes must request access before using:
 - Billing or payment systems.
 - Customer databases.
 
-Read-only local documentation and read-only Drive analysis do not require approval.
+Read-only local documentation and analysis of already-approved readable sources do not require another approval. Merely adding an API key does not approve writes.
 
 ## 5. Reporting Cadence
 

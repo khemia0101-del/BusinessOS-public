@@ -4,7 +4,7 @@
 
 Review is required for:
 
-- Credit repair claims.
+- Industry-regulated and customer-outcome claims.
 - Advertising and landing pages.
 - Outreach campaigns.
 - Contract, cancellation, billing, or guarantee language.

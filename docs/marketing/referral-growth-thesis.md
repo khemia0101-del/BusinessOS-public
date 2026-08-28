@@ -1,39 +1,26 @@
 # Referral Growth Thesis
 
-## User-Provided Example
+## Hypothesis
 
-Source: user message on 2026-05-25.
+A business with strong reputation, repeat customers, or informal referrals may have unmeasured growth available through consistent tracking, requests, and follow-up.
 
-The user noted an example where CRR760 appears to generate revenue from roughly 2,000 referrals, with marketing upside because the business is around 20 years old and has very strong reviews.
-
-## Why This Matters
-
-If a mature business with strong reviews is producing meaningful revenue mostly through referrals, then formalizing acquisition channels may create large upside.
-
-Potential upside areas:
-
-- SEO based on review authority and long operating history.
-- Local/service landing pages.
-- Referral program tracking.
-- Sales follow-up system.
-- Review capture and reputation management.
-- Paid search against high-intent terms.
-- Outreach partnerships.
-- CRM attribution and nurture.
+This remains a hypothesis until source evidence establishes the current referral volume, conversion, economics, and customer permission boundary.
 
 ## Evidence Needed
 
-- Source of the 2,000 referral number.
-- Referral conversion rate.
-- Review platform URLs and ratings.
-- Website traffic.
-- Organic rankings.
-- CRM lead source data.
-- Revenue by source.
-- Sales close rate.
-- Customer LTV.
-- Compliance-approved claims.
+- Lead and revenue source data
+- Referral partners and customer cohorts
+- Conversion, average gross profit, retention, and repeat rate by source
+- Review platform history and reputation signals
+- Current request and follow-up workflow
+- Incentives, disclosure, privacy, and industry constraints
 
-## Rule
+## Possible Actions
 
-This is a growth hypothesis until source evidence confirms the numbers.
+- Add referral attribution to the existing intake process.
+- Identify the moments when a referral request is appropriate.
+- Test a small manual program before building automation.
+- Give partners a trackable handoff path.
+- Measure referred-customer quality, not only lead count.
+
+Every recommendation must include current tool costs, expected internal effort, a baseline, and a proof plan.

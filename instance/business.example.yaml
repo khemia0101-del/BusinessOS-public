@@ -1,0 +1,42 @@
+version: 1
+instance_id: example-business
+business:
+  legal_name: Example Business LLC
+  display_name: Example Business
+  industry: unknown
+  timezone: America/New_York
+  currency: USD
+  website: ""
+acquisition:
+  status: evaluating
+  target_close_date: null
+  thesis: ""
+  decision_makers:
+    - role: owner
+      name: ""
+    - role: acquisition_partner
+      name: ""
+sources:
+  data_room:
+    provider: unknown
+    location_env: DATA_ROOM_URL
+  accounting:
+    provider: unknown
+    access: unavailable
+  banking:
+    provider: unknown
+    access: unavailable
+  crm:
+    provider: none_known
+    access: unavailable
+  meetings:
+    provider: unknown
+    access: unavailable
+  analytics: []
+approval:
+  material_change_approvers:
+    - owner
+    - acquisition_partner
+  pre_acquisition_default: read_only
+reporting:
+  weekly_review_day: Friday

@@ -1,42 +1,42 @@
-# Data Room Map
+# Evidence Source Map
 
-## Google Drive Data Room
+This tracked file defines the map format. The live source inventory is generated privately for each business from `instance/business.yaml` and connected integrations.
 
-Root folder:
+## Source Registry
 
-https://drive.google.com/drive/folders/1sYx2xvPTceGDpSgGCwIhtWNoE-uaCWIJ
+| Source ID     | System       | Record or folder           | Period  | Access      | Last indexed | Reliability | Use                                              |
+| ------------- | ------------ | -------------------------- | ------- | ----------- | ------------ | ----------- | ------------------------------------------------ |
+| `SRC-EXAMPLE` | Example only | Replace in private runtime | Unknown | Unavailable | Never        | Unknown     | Delete this row when the first source is indexed |
 
-## Observed Root Items
+## Expected Source Groups
 
-| Name | Type | URL | Use |
-| --- | --- | --- | --- |
-| Credit Repair Resources Diligence / Closing | Google Sheet | https://docs.google.com/spreadsheets/d/1wY5VZS1LNQnYVqsj_AHJV3kOGtjXmjtNdVZTJrXxltg/edit | Diligence and closing tracker |
-| Balance Sheets | Folder | https://drive.google.com/drive/folders/1gCryg3KXem6wtXAjoCxnA_I6cvpdbY_f | Balance sheet source docs |
-| P&L | Folder | https://drive.google.com/drive/folders/1zKOy-CP3HK7TIfBPhvbsRoQ0RnVfjThK | Profit and loss source docs |
-| Tax Returns | Folder | https://drive.google.com/drive/folders/1DZY9V-IX0aOyY23EnIxN8jlnrCtwrp5U | Tax return source docs |
-| Other | Folder | https://drive.google.com/drive/folders/1E97rEUKvPfr1wHpnQvpAJKCcZj48YYRN | Miscellaneous diligence source docs |
-| HR / Owner Schedule | Spreadsheet file | https://docs.google.com/spreadsheets/d/1MbzHGXF2r-3vVN4P9a-P7DmWsI2yrARx/edit | HR and owner schedule evidence |
-| CRR Due Diligence Checklist Full | PDF | https://drive.google.com/file/d/1cRE41LVefGQr__0pRtz_JIWc33QdF0vl/view | Diligence checklist |
-| Completed LOI Credit Repair Resources Final | PDF | https://drive.google.com/file/d/1n_MP50p7IG9OtlDTpUoEek9pWyyTx0K_/view | LOI source document |
+- Diligence and transaction documents
+- Accounting, tax, payroll, banking, and payment records
+- Customer, job, order, contract, subscription, and CRM records
+- Website, advertising, search, social, email, product, and content analytics
+- Process documents, calendars, task systems, and operational databases
+- Employee roster, responsibilities, compensation, interviews, and meeting records
+- Legal, regulatory, insurance, licensing, security, and compliance records
+- Reviews, support, complaints, refunds, cancellations, and other customer signals
 
-## Data Room Rules
+## Rules
 
-- Researcher reads and indexes Drive material.
-- Orchestrator tracks missing documents.
-- No file is moved, renamed, deleted, shared, or overwritten without approval.
-- Any extracted insight must link back to source file or folder.
-- Sensitive financial, tax, HR, customer, legal, and compliance material should be summarized only as needed.
-- If a Drive item cannot be read, create an access-request entry.
+- Index readable sources without changing them.
+- Assign a stable source ID before using a record as evidence.
+- Record the exact location, period, retrieval time, access level, and reliability.
+- Track documents that conflict, overlap, or leave a material period uncovered.
+- Cite the source ID beside every material claim, calculation, and recommendation.
+- Summarize sensitive material only as needed; do not copy raw records into the tracked repository.
+- Create an access request only when the source blocks a material conclusion or approved initiative.
 
-## Missing Document Tracker
+## Missing Evidence Request
 
-Use `tickets/inbox/` or `tickets/proposed/` for missing document requests.
+Each request states:
 
-Each missing document ticket should include:
-
-- Document name.
-- Why it is needed.
-- Drive folder where it belongs.
-- Who should provide it.
-- Risk of not having it.
-- Deadline or priority.
+- Evidence needed
+- Decision or conclusion it affects
+- Materiality: critical, material, or supporting
+- Expected owner and source system
+- Period required
+- Acceptable substitute
+- Status and deadline

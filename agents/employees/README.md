@@ -4,19 +4,19 @@
 
 Employee agents collect operational signal from humans connected to the business.
 
-The root `employees.json` file is the shared registry. Each employee agent folder stores that employee's profile and memory.
+Private `instance/employees.json` is the shared registry, copied from the empty root template. Keep real profiles and personal memory in private instance storage, not in tracked template files.
 
 ## Folder Pattern
 
 ```txt
-agents/employees/<agent_id>/
+instance/runtime/employees/<agent_id>/
   profile.md
   memory.md
 ```
 
-## Root Registry
+## Private Registry
 
-`employees.json` should contain:
+`instance/employees.json` should contain:
 
 - Name.
 - Phone number.
@@ -31,7 +31,7 @@ agents/employees/<agent_id>/
 
 ## Memory Rule
 
-Do not put sensitive personal notes in `employees.json`.
+Do not put sensitive personal notes in the registry or any tracked file.
 
 Put personal notes, relationship context, preferences, recurring friction, and historical memory in that employee's `memory.md` file.
 

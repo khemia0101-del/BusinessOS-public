@@ -1,47 +1,45 @@
 # Business Context
 
-## Business
+This file is the generic context contract. Hermes builds the live business context from `instance/business.yaml` and source-linked evidence. Do not add company facts to this tracked template.
 
-Business name: Credit Repair Resources LLC
+## Instance Identity
 
-Current stage: acquisition diligence / post-LOI operating system setup.
+- Business name: from private instance configuration
+- Stage: `BUSINESS_STAGE` from the service environment; `pre_acquisition`, `transition`, or `operating`
+- Industry: evidence-backed, not inferred from the company name
+- Primary sources: defined by the instance and connected integrations
 
-Primary data room: Google Drive.
+## Evidence Domains
 
-Local operating layer: `D:\Projects\businessOS`
-
-GitHub repository: https://github.com/khemia0101-del/YBS
-
-## Current Known Evidence
-
-The connected Google Drive data room currently includes:
-
-- Diligence / closing spreadsheet.
-- Balance Sheets folder.
-- P&L folder.
-- Tax Returns folder.
-- Other folder.
-- HR / owner schedule spreadsheet.
-- Due diligence checklist PDF.
-- Completed LOI PDF.
+- Transaction and ownership
+- Historical financial performance
+- Revenue quality and customer concentration
+- Sales and marketing
+- Delivery and operations
+- People and organizational design
+- Technology and data
+- Legal, regulatory, insurance, and compliance
+- Market, competition, and reputation
+- Post-close risks, opportunities, and dependencies
 
 ## Working Assumptions
 
-- The business involves credit repair services.
-- Sensitive financial, tax, HR, customer, and compliance material may exist in the data room.
-- Compliance review is required for customer-facing claims, financial representations, credit repair claims, contract language, and regulated communications.
-- The pod should be portable across machines and should not hardcode secrets.
+- Financial, tax, HR, customer, legal, and compliance material is sensitive.
+- Industry-specific rules must be researched and cited before they are treated as constraints.
+- The tracked core remains portable and contains no company secrets.
 
 ## Primary Business Questions
 
-- What is the current revenue, gross margin, net margin, and owner benefit baseline?
-- What is the customer acquisition mix?
-- What is the sales process from lead to paid customer?
-- What are the highest-friction customer and employee workflows?
-- What compliance constraints govern claims, outreach, billing, cancellation, and dispute handling?
+- How does the company make money, and which customers, channels, products, or jobs drive the economics?
+- What is the normalized revenue, gross profit, EBITDA or SDE, cash conversion, and working-capital baseline?
+- How reliable are the books, and which records conflict?
+- What does the lead-to-cash process look like?
+- Which people and workflows are critical or overloaded?
+- What legal, regulatory, contractual, and insurance constraints govern the business?
 - Which bottlenecks prevent growth after acquisition?
-- Which changes are fundamental and require owner/partner approval before execution?
+- Which missing capabilities are obvious from the evidence, and what would each cost to implement?
+- Which changes require approval, historical backtesting, simulation, shadow mode, or a pilot?
 
 ## Source Discipline
 
-When updating this context, add a source link next to every factual claim. If the source is a Drive file, use the exact Drive URL.
+Every factual claim needs a source reference. Every estimate needs its method and assumptions. Every unresolved conflict stays visible until reconciled.

@@ -6,8 +6,8 @@ This pod is a portable Business OS operating layer for an acquired or acquisitio
 
 The pod exists to:
 
-- Understand the business from the Google Drive data room.
-- Respect acquisition stage: pre-acquisition by default, post-acquisition only after logged transition.
+- Understand the business from every approved source system.
+- Respect `BUSINESS_STAGE`: pre-acquisition by default; transition or operating only after a logged decision.
 - Maintain source-linked underwriting, operations, finance, marketing, sales, SEO, ads, outreach, and compliance context.
 - Convert research and strategy into tickets.
 - Run read-only work autonomously.
@@ -18,17 +18,17 @@ The pod exists to:
 - Build internal systems, utilities, and automations when repeated work should become machinery.
 - Document communications and business signals so anomalies and patterns can be spotted.
 - Evaluate and test work through a zero-trust hierarchy before launch.
-- Use Edge Digital Twins to prove risky automations before replacing live workflows.
+- Use backtests, simulations, parallel workflows, and pilots to prove uncertain changes before replacing live workflows.
 
 ## Operating Boundary
 
-The Google Drive data room is the source of business documents.
+Connected systems are the sources of business evidence.
 
-This local folder is the source of agent instructions, tickets, reports, logs, and working context.
+The generic repository is the source of agent instructions and operating standards. Private instance storage holds tickets, reports, logs, indexes, and working context.
 
-Local files may summarize or index Drive materials, but they do not replace the Drive source files.
+Local records may summarize or index source material, but they do not replace the original records.
 
-The root `employees.json` file is the shared human registry for all agents. Employee-specific personal memory belongs with each employee agent profile under `agents/employees/<agent_id>/`.
+Private `instance/employees.json` is the shared human registry for this VM; root `employees.json` is an empty template only. Keep employee-specific personal memory in private instance storage, never in the tracked templates.
 
 ## Default Core Agents
 
@@ -55,7 +55,7 @@ An action requires approval when it:
 
 - Changes customer-facing assets, pricing, offer, policy, workflow, software, finances, compliance posture, or employee responsibilities.
 - Requires new access, API keys, credentials, payment, account creation, or permissions.
-- Moves, renames, deletes, shares, or modifies source files in Google Drive.
+- Moves, renames, deletes, shares, or modifies source-system records.
 - Deploys code, automations, public pages, ads, emails, outreach campaigns, or CRM flows.
 
 ## Workstream Standard
@@ -80,15 +80,15 @@ If a communication, meeting, email, call, customer signal, employee signal, part
 
 No code, automation, campaign, CRM change, customer-facing message, workflow, social post, WordPress publish, or external action should ship directly from the builder. Use `quality-system/` for independent eval, test/simulation, compliance review if needed, ship decision, rollback, and monitoring.
 
-## Edge Digital Twin Standard
+## Proof Standard
 
-For workflow replacement or high-impact automation, Hermes should build a parallel AI-native twin first. The twin runs in shadow mode, compares against the current process, then advances through pilot and staged rollout only after promotion gates pass.
+For uncertain workflow replacement or high-impact automation, Hermes should choose the cheapest credible proof: historical backtest, simulation, parallel shadow workflow, or small pilot. Live rollout advances only after the initiative's promotion gates pass.
 
 ## Evidence Standard
 
 Every business claim should identify one of:
 
-- Google Drive file or folder URL.
+- Source-system record, file, folder, query, or report location.
 - Local doc path.
 - Ticket ID.
 - Conversation/date.
