@@ -3,7 +3,6 @@ instance_id: example-business
 business:
   legal_name: Example Business LLC
   display_name: Example Business
-  stage: pre_acquisition
   industry: unknown
   timezone: America/New_York
   currency: USD
@@ -19,7 +18,7 @@ acquisition:
       name: ""
 sources:
   data_room:
-    provider: google_drive
+    provider: unknown
     location_env: DATA_ROOM_URL
   accounting:
     provider: unknown

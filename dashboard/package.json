@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "typecheck": "tsc --noEmit"
+    "build": "next build && node scripts/package-standalone.mjs",
+    "start": "node .next/standalone/server.js",
+    "typecheck": "next typegen && tsc --noEmit",
+    "test:smoke": "node scripts/smoke.mjs"
   },
   "dependencies": {
     "lucide-react": "^1.31.0",

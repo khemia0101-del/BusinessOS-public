@@ -126,6 +126,10 @@ Translate material risks into a mitigation, diligence condition, price adjustmen
 
 The machine-readable output must validate against `schemas/underwriting.schema.json`.
 
+Run `python scripts/validate_reports.py underwriting /private/path/report.json` before review or promotion. Working reports may have incomplete financials. Decision-ready and final reports require sourced periods, reconciliations, and base/downside/severe-downside cases. A final report cannot contain open reconciliations or unreceived material evidence unless explicitly waived; each waiver records approver, date, and reason. Each remaining `material_gaps` entry must exactly match a waived request in `missing_evidence`. Decision-ready exceptions must also be disclosed in the recommendation's conditions.
+
+Use registered source IDs in `source_ids`, risk `evidence`, and reconciliation `source_a` / `source_b`. The validator rejects dangling references, duplicate IDs, unexplained differences, and accepted unsupported add-backs. Validation is a minimum consistency check, not proof that sources are true, calculations are correct, coverage is sufficient, or a waiver is authorized. The independent evaluator must verify those against the underlying evidence and logged decisions.
+
 ## Confidence
 
 Confidence is reported by section, not as one vague overall score:

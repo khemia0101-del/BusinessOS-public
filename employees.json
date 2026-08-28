@@ -1,7 +1,6 @@
 {
   "version": 1,
-  "purpose": "Shared employee/human registry accessible to all Business Pod agents. Personal notes and memory belong in each employee agent profile folder, not in this root file.",
-  "stage": "pre_acquisition",
+  "purpose": "Empty employee registry template. Copy to private instance/employees.json before adding people. Never store real employee records in this tracked file.",
   "default_rules": [
     "Use this file to identify humans, roles, responsibilities, communication handles, and agent mappings.",
     "Do not store sensitive personal notes in this root file.",
@@ -33,8 +32,8 @@
     "email": "",
     "timezone": "",
     "communication_preferences": [],
-    "agent_profile_path": "agents/employees/<agent_id>/profile.md",
-    "memory_path": "agents/employees/<agent_id>/memory.md",
+    "agent_profile_path": "instance/runtime/employees/<agent_id>/profile.md",
+    "memory_path": "instance/runtime/employees/<agent_id>/memory.md",
     "notes_policy": "personal notes and memory go in memory_path, not employees.json",
     "consent": {
       "employee_agent_enabled": false,

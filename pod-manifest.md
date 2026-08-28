@@ -7,7 +7,7 @@ This pod is a portable Business OS operating layer for an acquired or acquisitio
 The pod exists to:
 
 - Understand the business from every approved source system.
-- Respect acquisition stage: pre-acquisition by default, post-acquisition only after logged transition.
+- Respect `BUSINESS_STAGE`: pre-acquisition by default; transition or operating only after a logged decision.
 - Maintain source-linked underwriting, operations, finance, marketing, sales, SEO, ads, outreach, and compliance context.
 - Convert research and strategy into tickets.
 - Run read-only work autonomously.
@@ -28,7 +28,7 @@ The generic repository is the source of agent instructions and operating standar
 
 Local records may summarize or index source material, but they do not replace the original records.
 
-The root `employees.json` file is the shared human registry for all agents. Employee-specific personal memory belongs with each employee agent profile under `agents/employees/<agent_id>/`.
+Private `instance/employees.json` is the shared human registry for this VM; root `employees.json` is an empty template only. Keep employee-specific personal memory in private instance storage, never in the tracked templates.
 
 ## Default Core Agents
 

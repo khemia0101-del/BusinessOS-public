@@ -16,6 +16,50 @@
     "missing_evidence",
     "sources"
   ],
+  "allOf": [
+    {
+      "if": { "properties": { "status": { "enum": ["decision_ready_with_exceptions", "final"] } } },
+      "then": {
+        "required": ["scenarios"],
+        "properties": {
+          "sources": { "minItems": 1 },
+          "evidence_coverage": { "items": { "required": ["source_ids"], "properties": { "source_ids": { "minItems": 1 } } } },
+          "financial_baseline": {
+            "properties": {
+              "periods": { "minItems": 1, "items": { "properties": { "source_ids": { "minItems": 1 } } } },
+              "reconciliations": { "minItems": 1 },
+              "normalization_adjustments": { "items": { "properties": { "source_ids": { "minItems": 1 } } } }
+            }
+          },
+          "scenarios": {
+            "minItems": 3,
+            "allOf": [
+              { "contains": { "properties": { "name": { "const": "base" } } } },
+              { "contains": { "properties": { "name": { "const": "downside" } } } },
+              { "contains": { "properties": { "name": { "const": "severe_downside" } } } }
+            ],
+            "items": { "properties": { "assumptions": { "minItems": 1 } } }
+          }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "status": { "const": "final" } } },
+      "then": {
+        "properties": {
+          "missing_evidence": {
+            "items": {
+              "if": { "properties": { "materiality": { "enum": ["critical", "material"] } } },
+              "then": { "properties": { "status": { "enum": ["received", "waived"] } } }
+            }
+          },
+          "financial_baseline": {
+            "properties": { "reconciliations": { "items": { "properties": { "status": { "enum": ["reconciled", "explained", "waived"] } } } } }
+          }
+        }
+      }
+    }
+  ],
   "properties": {
     "report_id": { "type": "string", "minLength": 1 },
     "business_id": { "type": "string", "minLength": 1 },
@@ -137,8 +181,15 @@
               "source_b": { "type": "string" },
               "difference": { "type": "number" },
               "explanation": { "type": "string" },
-              "status": { "enum": ["reconciled", "explained", "open"] }
-            }
+              "status": { "enum": ["reconciled", "explained", "open", "waived"] },
+              "waiver": { "$ref": "#/$defs/waiver" }
+            },
+            "allOf": [
+              {
+                "if": { "properties": { "status": { "const": "waived" } } },
+                "then": { "required": ["waiver"] }
+              }
+            ]
           }
         }
       }
@@ -181,8 +232,15 @@
           "materiality": { "enum": ["critical", "material", "supporting"] },
           "status": {
             "enum": ["not_requested", "requested", "received", "waived"]
+          },
+          "waiver": { "$ref": "#/$defs/waiver" }
+        },
+        "allOf": [
+          {
+            "if": { "properties": { "status": { "const": "waived" } } },
+            "then": { "required": ["waiver"] }
           }
-        }
+        ]
       }
     },
     "sources": {
@@ -191,6 +249,16 @@
     }
   },
   "$defs": {
+    "waiver": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["approved_by", "approved_at", "reason"],
+      "properties": {
+        "approved_by": { "type": "string", "minLength": 1 },
+        "approved_at": { "type": "string", "format": "date-time" },
+        "reason": { "type": "string", "minLength": 1 }
+      }
+    },
     "confidence": { "enum": ["high", "medium", "low"] },
     "sourceIds": {
       "type": "array",

@@ -6,6 +6,8 @@ Tell Hermes what stage the business is in and what authority exists.
 
 Default mode: `pre_acquisition`
 
+The sole setting is the `BUSINESS_STAGE` process variable, loaded by the service manager from the VM's `.env`. Valid values are `pre_acquisition`, `transition`, and `operating`. Missing, invalid, or conflicting configuration must keep access read-only. Do not use a stage field in `business.yaml` or `employees.json`.
+
 ## Modes
 
 ### Pre-Acquisition
@@ -45,7 +47,11 @@ Not allowed by default:
 - Spend money.
 - Represent ownership/control of the business.
 
-### Post-Acquisition
+### Transition (`transition`)
+
+Use during handover after a logged acquisition decision. Read-only remains the default until specific control, access, employee-contact, and spending permissions are confirmed. Prepare migration and stabilization work; run writes only inside an explicitly approved scope.
+
+### Operating (`operating`)
 
 Use after control and authority are confirmed.
 
@@ -58,7 +64,9 @@ Default assumptions:
 
 ## Stage Transition
 
-Changing from `pre_acquisition` to `post_acquisition` requires a logged decision in `audit/decisions.md`.
+Any stage change requires a logged decision in `audit/decisions.md`. The owner then updates `BUSINESS_STAGE` and restarts the affected services. A stage is context, not permission to spend, contact people, or publish.
+
+Legacy `post_acquisition` is not a valid setting. Review the current authority and explicitly migrate it to `transition` or `operating`; never silently treat the old value as permission to act.
 
 Before transition, Hermes should confirm:
 

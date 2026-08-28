@@ -5,7 +5,7 @@ This file is the generic context contract. Hermes builds the live business conte
 ## Instance Identity
 
 - Business name: from private instance configuration
-- Stage: `pre_acquisition`, `transition`, or `operating`
+- Stage: `BUSINESS_STAGE` from the service environment; `pre_acquisition`, `transition`, or `operating`
 - Industry: evidence-backed, not inferred from the company name
 - Primary sources: defined by the instance and connected integrations
 

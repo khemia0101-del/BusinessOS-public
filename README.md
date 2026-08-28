@@ -8,11 +8,30 @@ The repository contains the generic operating contract. Company facts and secret
 
 1. Copy `instance/business.example.yaml` to the private runtime path `instance/business.yaml`.
 2. Copy `.env.example` to `.env` on the business VM and add credentials manually.
-3. Set `BUSINESS_STAGE` to `pre_acquisition`, `transition`, or `operating`.
+3. Set `BUSINESS_STAGE` in `.env` to `pre_acquisition`, `transition`, or `operating`. This is the only stage setting; an unset or invalid value means pre-acquisition.
 4. Give Hermes `HERMES_START.md` as its entry point.
 5. Use `docs/underwriting/underwriting-standard.md` before acquisition.
 6. Use `docs/scaling/scaling-plan-standard.md` to build the post-close plan.
-7. Run the owner dashboard from `dashboard/`.
+7. Follow `dashboard/README.md` to build and run the owner dashboard. Use `docs/deployment/azure-vm-test.md` for VM paths and environment loading.
+
+Copy the root `employees.json` template to private `instance/employees.json` before adding people or approved contact scopes. Never populate the tracked template with real employee records.
+
+## What Works Today
+
+This release supplies the operating instructions, report standards and validators, a sample-data dashboard, and an optional authenticated message-to-Hermes gateway. The dashboard does not yet read live business data, connect integrations, or execute approvals. Adding API keys alone does not install connectors or turn the architecture diagram into a running automation system. Hermes and each required integration must be installed and configured separately.
+
+The architecture describes the intended complete system. The current dashboard and its integration-health indicators are illustrative.
+
+## Validation
+
+```sh
+python -m pip install -r requirements-dev.txt
+python -m unittest discover -s tests -v
+python scripts/validate_reports.py underwriting /private/path/report.json
+python scripts/validate_reports.py scaling-plan /private/path/plan.json
+```
+
+Dashboard validation commands are in `dashboard/README.md`. GitHub Actions runs the Python tests, dashboard type check, production build, and packaged-server smoke test on pull requests. Report validation checks readiness and evidence references; it does not replace independent review of the evidence or grant approval to act.
 
 ## Core Model
 
@@ -54,4 +73,4 @@ The repository contains the generic operating contract. Company facts and secret
 
 ## Current Credential Boundary
 
-Credentials are managed manually in `.env`. A Vercel-style secrets page may be added later, but the current dashboard only shows whether an integration is configured and healthy.
+Credentials are managed manually in the VM's ignored `.env`. A Vercel-style secrets page may be added later. The intended dashboard boundary is status only, never raw keys; current integration statuses are sample data.

@@ -21,5 +21,6 @@ credentials/
 *.pfx
 *.ppk
 
-# Optional private employee memory files. Root employees.json is intentionally tracked as the shared registry shape.
+# Legacy private-memory pattern. New employee records belong in ignored instance/runtime/.
+# Root employees.json is an empty template, not a live roster.
 agents/employees/*/memory.private.md

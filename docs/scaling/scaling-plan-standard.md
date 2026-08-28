@@ -113,3 +113,7 @@ Use the least disruptive credible method:
 5. **Launch:** use when the change is low-risk, reversible, and already well supported.
 
 The machine-readable output must validate against `schemas/scaling-plan.schema.json`.
+
+Run `python scripts/validate_reports.py scaling-plan /private/path/plan.json` before review or promotion. Review-ready, approved, and active plans require a sourced baseline, actionable initiatives, registered assumptions, and comparable baseline/base/downside/upside projections for each modeled period. `source_ids` and capability-gap `evidence` refer to the plan's `sources` registry; `assumption_ids` refer to its `assumptions` registry. Use `closed` for completed initiatives.
+
+Validation does not approve a plan or execute anything. Costs, calculations, evidence, and approval records still need independent review. An `approved` label in a file is not authority to build, spend, or deploy.

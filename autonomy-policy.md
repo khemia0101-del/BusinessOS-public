@@ -8,15 +8,15 @@ Read-only work is automatically approved.
 
 Hermes should immediately:
 
-- Read local pod files.
-- Determine acquisition mode from `.env` and `acquisition-mode.md`.
-- Load `employees.json`.
-- Read and map the provided Google Drive data room.
+- Follow the load order in `HERMES_START.md`.
+- Determine acquisition mode from the non-secret `BUSINESS_STAGE` process variable and `acquisition-mode.md`; never read or dump `.env` into context.
+- Load private `instance/employees.json` if present.
+- Read and map the approved data-room locations and connected sources.
 - Search source documents it can access.
 - Summarize, index, tag, classify, and cross-reference evidence.
 - Create and update internal documentation.
 - Create read-only/planning Hermes profiles from `hermes-profiles/`.
-- Create employee agent profiles from `employees.json` only when communication scope is approved.
+- Create employee agent profiles from `instance/employees.json` only when communication scope is approved.
 - Identify missing documents, tools, credentials, systems, and permissions.
 - Ask for the missing items that block full business understanding.
 - Detect growth opportunities and operational inefficiencies.
@@ -27,7 +27,7 @@ Hermes should immediately:
 
 Approval is required for:
 
-- Google Drive file move, rename, delete, share, overwrite, or edit.
+- Source-system file move, rename, delete, share, overwrite, or edit.
 - External messages to customers, employees, partners, vendors, or leads.
 - Ads launch or budget changes.
 - Website or landing-page publishing.

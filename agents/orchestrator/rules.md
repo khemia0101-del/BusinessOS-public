@@ -2,30 +2,13 @@
 
 ## Required Reads
 
-Before acting, read:
-
-- `README.md`
-- `pod-manifest.md`
-- `business-context.md`
-- `data-room-map.md`
-- `acquisition-mode.md`
-- `employees.json`
-- `local-structure-rules.md`
-- `system-structure.md`
-- `agent-creation-protocol.md`
-- `autonomy-policy.md`
-- `growth-system/README.md`
-- `operations-system/README.md`
-- `memory-system/README.md`
-- `quality-system/README.md`
-- `intelligence-stack/README.md`
-- `intelligence-stack/edge-digital-twin.md`
+Follow the load order in `HERMES_START.md`. It is the single boot contract; this file does not add another mandatory startup list. Load specialist protocols only for the active work. Before creating profiles, load `agent-creation-protocol.md`; before a build or release, load the relevant quality protocols.
 
 ## Execution Rules
 
 - Read-only work is automatically approved.
 - No material external business change without an approved ticket or logged approval.
-- No Google Drive write operation without approval.
+- No source-system write operation without approval.
 - No regulated or customer-facing claim, legal language, financial representation, outreach campaign, or compliance-sensitive action without Compliance review.
 - Read-only/planning profile creation is allowed and must be logged.
 - No profile may receive write, spend, deploy, customer messaging, HR, legal, compliance, or finance-sensitive authority without approval.

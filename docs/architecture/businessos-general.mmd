@@ -1,12 +1,13 @@
 flowchart TB
+    %% Target architecture, not a claim that every connector or engine is implemented.
     %% BusinessOS: one isolated VM per business
 
     subgraph INSTANCE["One BusinessOS instance · one business · one VM"]
         direction TB
 
         subgraph PRIVATE["Private instance boundary"]
-            CONFIG["business.yaml<br/>identity · stage · sources · approvals"]
-            SECRETS[".env<br/>credentials entered manually by owner"]
+            CONFIG["business.yaml<br/>identity · sources · approvals"]
+            SECRETS[".env<br/>BUSINESS_STAGE · credentials entered manually by owner"]
             RUNTIME["Private runtime data<br/>indexes · reports · tickets · audit · memory"]
         end
 
@@ -101,7 +102,9 @@ flowchart TB
             GATE -->|"No"| REVISE["Revise or stop"]
             REVISE --> RESEARCHED
             GATE -->|"Yes"| FINALAPP{"Final live approval required?"}
-            FINALAPP -->|"Yes"| OWNER
+            FINALAPP -->|"Yes"| LIVEAPP{"Owner / partner live decision"}
+            LIVEAPP -->|"Approve"| RELEASE
+            LIVEAPP -->|"Reject or postpone"| BACKLOG
             FINALAPP -->|"No"| RELEASE
             RELEASE --> MEASURE["Measure actual vs baseline and projection"]
             MEASURE --> LEARN["Report · audit · memory · model update"]

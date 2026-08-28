@@ -8,14 +8,14 @@ Approval: automatically approved because this is read-only.
 
 ## Objective
 
-Index the provided Google Drive data room, map all readable material, and prepare the evidence base for underwriting and scaling analysis.
+Index the approved data-room locations and connected sources from the private instance configuration. Map all readable material and prepare the evidence base for underwriting and scaling analysis.
 
 ## Rules
 
 - Read-only only.
-- Do not modify Drive.
+- Do not modify source systems.
 - Link every extracted fact to a source.
-- Do not assume the Drive structure matches any prior business.
+- Do not assume the source structure or provider matches any prior business.
 - Create missing-document requests only for material blockers.
 
 ## Output
