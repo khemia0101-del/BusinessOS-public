@@ -1,3 +1,4 @@
+import { LiveWorkspace } from "@/components/live-workspace";
 import { Check, FlaskConical, ShieldCheck } from "lucide-react";
 import {
   DemoNotice,
@@ -34,6 +35,7 @@ const workItems = [
 ];
 
 export default function WorkPage() {
+  if (process.env.BUSINESSOS_MODE !== "demo") return <LiveWorkspace view="work" />;
   return (
     <div className="page">
       <PageHeading

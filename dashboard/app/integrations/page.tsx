@@ -1,3 +1,4 @@
+import { LiveWorkspace } from "@/components/live-workspace";
 import { KeyRound } from "lucide-react";
 import {
   DemoNotice,
@@ -14,6 +15,7 @@ function integrationTone(state: string) {
 }
 
 export default function IntegrationsPage() {
+  if (process.env.BUSINESSOS_MODE !== "demo") return <LiveWorkspace view="integrations" />;
   return (
     <div className="page">
       <PageHeading

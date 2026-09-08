@@ -1,6 +1,8 @@
 # Dashboard
 
-This is an illustrative owner workspace, not a live business dashboard yet. It uses sample construction-company data from `lib/demo-data.ts`. Integration status, reports, work items, and approval-looking controls are examples; they do not connect accounts or execute business actions.
+Live mode is now the default. It requires configured owner/reviewer authentication and the Python evidence runtime on loopback port 8790. See [the runtime guide](../docs/deployment/evidence-runtime.md). Set `BUSINESSOS_MODE=demo` explicitly to use the original illustrative workspace below. Live mode never substitutes demo data after an API failure.
+
+The optional demo workspace uses sample construction-company data from `lib/demo-data.ts`. Its integration status, reports, work items, and approval-looking controls are examples. The live workspace uses the authenticated runtime API and persists evidence, reports, reviews, initiatives, and notebook job observations.
 
 Use Node.js 22 (Node.js 20.9 or later is supported) and npm:
 

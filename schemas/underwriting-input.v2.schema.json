@@ -1,0 +1,26 @@
+{
+ "$schema":"https://json-schema.org/draft/2020-12/schema",
+ "title":"BusinessOS underwriting input v2", "type":"object", "additionalProperties":false,
+ "required":["report_id","as_of_date","periods","adjustments","reconciliations","scenarios","coverage","citations","recommendation"],
+ "properties":{
+  "schema_version":{"const":2}, "report_id":{"$ref":"#/$defs/id"}, "business_id":{"$ref":"#/$defs/id"}, "as_of_date":{"type":"string","format":"date"}, "legacy_report_id":{"type":"string"}, "ltm_period_ids":{"$ref":"#/$defs/ids"},
+  "periods":{"type":"array","items":{"type":"object","additionalProperties":false,"required":["id","start","end","basis","status","currency","earnings_definition","revenue","reported_earnings","source_ids"],"properties":{
+   "id":{"$ref":"#/$defs/id"},"start":{"type":"string","format":"date"},"end":{"type":"string","format":"date"},"basis":{"enum":["cash","accrual"]},"status":{"enum":["actual","forecast"]},"currency":{"type":"string","pattern":"^[A-Z]{3}$"},"earnings_definition":{"enum":["net_income","ebitda","sde"]},"period_type":{"enum":["month","fiscal_year","interim"]},"revenue":{"$ref":"#/$defs/amount"},"reported_earnings":{"$ref":"#/$defs/amount"},"source_ids":{"$ref":"#/$defs/ids"}
+  }}},
+  "adjustments":{"type":"array","items":{"type":"object","additionalProperties":false,"required":["id","period_id","classification","accepted","amount","source_ids","rationale"],"properties":{
+   "id":{"$ref":"#/$defs/id"},"period_id":{"$ref":"#/$defs/id"},"classification":{"enum":["owner_compensation","nonrecurring","related_party","discretionary","replacement_cost","under_recorded_expense","unsupported"]},"accepted":{"type":"boolean"},"amount":{"$ref":"#/$defs/amount"},"source_ids":{"$ref":"#/$defs/ids"},"rationale":{"$ref":"#/$defs/text"},"recurrence_test":{"enum":["passed","failed","unknown"]},"replacement_cost_test":{"enum":["passed","failed","unknown"]}
+  }}},
+  "reconciliations":{"type":"array","items":{"type":"object","required":["id","source_a","source_b","amount_a","amount_b","status"],"properties":{"id":{"$ref":"#/$defs/id"},"source_a":{"$ref":"#/$defs/id"},"source_b":{"$ref":"#/$defs/id"},"amount_a":{"$ref":"#/$defs/amount"},"amount_b":{"$ref":"#/$defs/amount"},"status":{"enum":["open","reconciled","explained","waived"]}}}},
+  "scenarios":{"type":"array","items":{"type":"object","required":["name","assumptions","source_ids"],"properties":{"name":{"enum":["base","downside","severe_downside","upside"]},"assumptions":{"type":"array","minItems":1,"items":{"$ref":"#/$defs/text"}},"source_ids":{"$ref":"#/$defs/ids"}}}},
+  "coverage":{"type":"array","items":{"type":"object","required":["id","status","notes"],"properties":{"id":{"$ref":"#/$defs/id"},"status":{"enum":["missing","in_progress","complete"]},"notes":{"$ref":"#/$defs/text"},"source_ids":{"$ref":"#/$defs/ids"}}}},
+  "citations":{"type":"array","items":{"type":"object","required":["source_id","locator","claim"],"properties":{"source_id":{"$ref":"#/$defs/id"},"locator":{"$ref":"#/$defs/text"},"claim":{"$ref":"#/$defs/text"}}}},
+  "recommendation":{"type":"object","required":["decision","summary","conditions"],"properties":{"decision":{"enum":["pause","decline","proceed","proceed_with_conditions"]},"summary":{"$ref":"#/$defs/text"},"conditions":{"type":"array","items":{"$ref":"#/$defs/text"}}}},
+  "risks":{"type":"array","items":{"type":"object","required":["title","mitigation"],"properties":{"title":{"$ref":"#/$defs/text"},"mitigation":{"$ref":"#/$defs/text"}}}}
+ },
+ "$defs":{
+  "id":{"type":"string","pattern":"^[a-zA-Z0-9][a-zA-Z0-9_-]{0,119}$"},
+  "ids":{"type":"array","uniqueItems":true,"items":{"$ref":"#/$defs/id"}},
+  "text":{"type":"string","minLength":1,"pattern":"\\S"},
+  "amount":{"anyOf":[{"type":"number"},{"type":"string","pattern":"^-?[0-9]+(?:\\.[0-9]+)?$"}]}
+ }
+}

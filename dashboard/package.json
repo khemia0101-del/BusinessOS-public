@@ -7,7 +7,8 @@
     "build": "next build && node scripts/package-standalone.mjs",
     "start": "node .next/standalone/server.js",
     "typecheck": "next typegen && tsc --noEmit",
-    "test:smoke": "node scripts/smoke.mjs"
+    "test:smoke": "node scripts/smoke.mjs",
+    "test:live": "node scripts/live-smoke.mjs"
   },
   "dependencies": {
     "lucide-react": "^1.31.0",

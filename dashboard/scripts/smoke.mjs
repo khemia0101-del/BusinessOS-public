@@ -23,7 +23,7 @@ async function check(configuredStage, expectedStage, checkPages) {
   const origin = `http://127.0.0.1:${port}`;
   const child = spawn(process.execPath, [serverPath], {
     cwd: root,
-    env: { ...process.env, HOSTNAME: "127.0.0.1", PORT: String(port), BUSINESS_STAGE: configuredStage, BUSINESSOS_INSTANCE_ID: "smoke-test" },
+    env: { ...process.env, BUSINESSOS_MODE: "demo", HOSTNAME: "127.0.0.1", PORT: String(port), BUSINESS_STAGE: configuredStage, BUSINESSOS_INSTANCE_ID: "smoke-test" },
     stdio: ["ignore", "pipe", "pipe"],
     windowsHide: true,
   });

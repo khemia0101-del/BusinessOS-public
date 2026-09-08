@@ -24,3 +24,13 @@ credentials/
 # Legacy private-memory pattern. New employee records belong in ignored instance/runtime/.
 # Root employees.json is an empty template, not a live roster.
 agents/employees/*/memory.private.md
+
+# Company evidence and authentication must never enter Git.
+instance/business.yaml
+instance/company.json
+instance/employees.json
+instance/runtime/
+instance/private/
+.venv/
+*.sqlite3
+*.sqlite3-*

@@ -3,6 +3,8 @@ import type { ReactNode } from "react";
 import { AppShell } from "@/components/app-shell";
 import "./globals.css";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "BusinessOS",
   description:
@@ -15,7 +17,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <AppShell>{children}</AppShell>
+        <AppShell demo={process.env.BUSINESSOS_MODE === "demo"}>{children}</AppShell>
       </body>
     </html>
   );

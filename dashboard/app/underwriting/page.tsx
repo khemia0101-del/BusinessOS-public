@@ -1,3 +1,4 @@
+import { LiveWorkspace } from "@/components/live-workspace";
 import {
   Confidence,
   DemoNotice,
@@ -56,6 +57,7 @@ const risks = [
 ];
 
 export default function UnderwritingPage() {
+  if (process.env.BUSINESSOS_MODE !== "demo") return <LiveWorkspace view="underwriting" />;
   return (
     <div className="page">
       <PageHeading

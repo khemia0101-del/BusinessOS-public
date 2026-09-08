@@ -18,9 +18,11 @@ Copy the root `employees.json` template to private `instance/employees.json` bef
 
 ## What Works Today
 
-This release supplies the operating instructions, report standards and validators, a sample-data dashboard, and an optional authenticated message-to-Hermes gateway. The dashboard does not yet read live business data, connect integrations, or execute approvals. Adding API keys alone does not install connectors or turn the architecture diagram into a running automation system. Hermes and each required integration must be installed and configured separately.
+The version 2 evidence runtime and authenticated live dashboard are now implemented. Start with [the runtime guide](docs/deployment/evidence-runtime.md). They support private versioned document ingestion, deterministic financial calculations, source-linked reports and independent review, initiative measurements, and optional on-demand Notebook exchange. Direct accounting/banking OAuth connectors and unattended browser workers are not included. Use `BUSINESSOS_MODE=demo` for the original illustrative dashboard described below.
 
-The architecture describes the intended complete system. The current dashboard and its integration-health indicators are illustrative.
+The original operating instructions, version 1 report validators, sample-data dashboard, and optional message-to-Hermes gateway remain available. Adding API keys alone does not install connectors. Hermes and each required external integration must be installed and configured separately.
+
+The architecture describes the intended complete system. Only demo mode uses illustrative integration-health indicators; live mode displays persisted evidence and connection observations.
 
 ## Validation
 
