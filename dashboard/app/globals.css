@@ -26,6 +26,28 @@ Design direction contract: Build a calm, light operating desk for a nontechnical
   --focus: 0 0 0 3px rgba(21, 94, 239, 0.2);
 }
 
+.runtime-panel { padding: 24px; margin-bottom: 20px; }
+.runtime-panel h2 { margin-top: 0; font-size: 19px; }
+.runtime-toolbar { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; margin: 0 0 24px; color: var(--muted); }
+.runtime-toolbar strong { color: var(--ink); }
+.runtime-error, .runtime-message { padding: 16px; border-radius: 8px; margin-bottom: 18px; }
+.runtime-error { background: var(--red-soft); color: var(--red); }
+.runtime-message { background: var(--blue-soft); color: var(--blue); }
+.live-workspace form { display: grid; gap: 14px; max-width: 760px; margin: 20px 0; }
+.live-workspace label { display: grid; gap: 6px; font-weight: 550; }
+.live-workspace input, .live-workspace textarea, .live-workspace select { min-width: 0; width: 100%; border: 1px solid var(--line-strong); border-radius: 6px; padding: 10px; background: white; color: var(--ink); }
+.live-workspace textarea { min-height: 96px; resize: vertical; }
+.live-workspace .check-label { display: flex; align-items: center; }
+.live-workspace input[type=checkbox] { width: auto; }
+.live-workspace .button { justify-self: start; cursor: pointer; }
+.live-workspace button:disabled { opacity: .55; cursor: wait; }
+.live-workspace button.text-link { background: transparent; border: 0; padding: 0; cursor: pointer; text-align: left; overflow-wrap: anywhere; }
+.live-workspace code { overflow-wrap: anywhere; }
+.live-workspace details { padding: 14px 0; border-bottom: 1px solid var(--line); }
+.source-text { max-height: 600px; overflow: auto; }
+.source-text pre { white-space: pre-wrap; overflow-wrap: anywhere; font: inherit; }
+.live-workspace .table-wrap { margin-bottom: 20px; }
+
 * {
   box-sizing: border-box;
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import type { ReactNode } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -24,8 +25,21 @@ function isActive(pathname: string, href: string) {
   return href === "/" ? pathname === href : pathname.startsWith(href);
 }
 
-export function AppShell({ children }: { children: ReactNode }) {
+export function AppShell({ children, demo = false }: { children: ReactNode; demo?: boolean }) {
   const pathname = usePathname();
+  const [company, setCompany] = useState("Private company workspace");
+  const [stage, setStage] = useState("Awaiting runtime");
+  const [lastRefresh, setLastRefresh] = useState("No evidence refresh confirmed");
+  useEffect(() => {
+    const listener = (event: Event) => {
+      const data = (event as CustomEvent).detail;
+      setCompany(data.business.display_name);
+      setStage(data.stage.replaceAll("_", " "));
+      setLastRefresh(`Workspace refreshed ${new Date(data.generated_at).toLocaleTimeString()}`);
+    };
+    window.addEventListener("businessos-status", listener);
+    return () => window.removeEventListener("businessos-status", listener);
+  }, []);
 
   return (
     <div className="app-shell">
@@ -43,9 +57,9 @@ export function AppShell({ children }: { children: ReactNode }) {
         </div>
 
         <div className="workspace-summary">
-          <span className="workspace-name">Harbor Ridge Construction</span>
+          <span className="workspace-name">{demo ? "Harbor Ridge Construction" : company}</span>
           <span className="workspace-stage">
-            Pre-acquisition · Illustrative
+            {demo ? "Pre-acquisition · Illustrative" : stage}
           </span>
         </div>
 
@@ -71,8 +85,8 @@ export function AppShell({ children }: { children: ReactNode }) {
         <div className="sidebar-footer">
           <span className="system-dot" aria-hidden="true" />
           <div>
-            <strong>System ready</strong>
-            <span>Last evidence sync 12m ago</span>
+            <strong>{demo ? "Illustrative workspace" : "Evidence workspace"}</strong>
+            <span>{demo ? "Sample data only" : lastRefresh}</span>
           </div>
         </div>
       </aside>

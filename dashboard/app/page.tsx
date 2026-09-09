@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { LiveWorkspace } from "@/components/live-workspace";
 import { evidenceCoverage, findings, initiatives } from "@/lib/demo-data";
 import {
   DemoNotice,
@@ -32,6 +33,7 @@ const activities = [
 ];
 
 export default function OverviewPage() {
+  if (process.env.BUSINESSOS_MODE !== "demo") return <LiveWorkspace view="overview" />;
   const averageCoverage = Math.round(
     evidenceCoverage.reduce((total, item) => total + item.coverage, 0) /
       evidenceCoverage.length,

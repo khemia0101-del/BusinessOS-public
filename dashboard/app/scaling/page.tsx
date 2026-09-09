@@ -1,3 +1,4 @@
+import { LiveWorkspace } from "@/components/live-workspace";
 import {
   DemoNotice,
   PageHeading,
@@ -23,6 +24,7 @@ const stateTone = (state: string) => {
 };
 
 export default function ScalingPage() {
+  if (process.env.BUSINESSOS_MODE !== "demo") return <LiveWorkspace view="scaling" />;
   return (
     <div className="page">
       <PageHeading
