@@ -23,6 +23,7 @@ CHECKS = {
                 "working_capital", "customer_concentration", "owner_replacement", "contracts_and_licenses"],
     "construction": ["job_costs_and_wip", "retainage_collectability", "backlog_cost_to_complete", "bonding_and_capacity"],
 }
+INDUSTRIES = ("unknown", "construction")
 
 
 def now():
@@ -144,6 +145,8 @@ class Runtime:
 
     def configure(self, data, actor):
         required(data, ("display_name", "industry"))
+        if data["industry"] not in INDUSTRIES:
+            raise ValidationError("Industry must be unknown or construction")
         if data.get("notebook_url"):
             notebook_url(data["notebook_url"])
         clean = {"display_name": str(data["display_name"])[:160], "industry": data["industry"],

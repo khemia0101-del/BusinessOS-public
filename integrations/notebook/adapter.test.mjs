@@ -23,6 +23,16 @@ test("existing publication does not get duplicated", async () => {
   const r = await runNotebookJob({ action: "publish", notebook_url: url, report_id: "r1", content_hash: "a".repeat(64) }, { getAXState: async () => state.replace("ledger.pdf", "BusinessOS r1 aaaaaaaaaaaaaaaa") }, { confirmPublication: true });
   assert.equal(r.status, "uncertain");
 });
+test("a failed ask submit is uncertain because the write may have happened", async () => {
+  const job = { action: "ask", notebook_url: url, question: "What is the answer?" };
+  const states = [state + "\n  5 text entry area Query box", state + "\n  5 button Submit"];
+  const result = await runNotebookJob(job, {
+    getAXState: async () => states.shift(),
+    click: async target => { if (target === 6) throw new Error("request failed after submit"); },
+    paste: async () => {},
+  });
+  assert.equal(result.status, "uncertain");
+});
 test("current pasted-text dialog supports generated source titles and full verification", async () => {
   const job = { action: "publish", notebook_url: url, report_id: "r1", content_hash: "a".repeat(64), content: "Reviewed synthetic report" };
   const pasted = [];

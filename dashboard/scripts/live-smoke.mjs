@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { spawn } from "node:child_process";
 import { once } from "node:events";
+import { existsSync } from "node:fs";
 import { mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
@@ -15,7 +16,9 @@ async function freePort() { const s = createServer(); s.listen(0, "127.0.0.1"); 
 const apiPort = await freePort(), webPort = await freePort(), storage = await mkdtemp(join(tmpdir(), "businessos-live-test-"));
 const owner = randomBytes(32).toString("hex"), reviewer = randomBytes(32).toString("hex"), worker = randomBytes(32).toString("hex");
 const env = { ...process.env, BUSINESSOS_MODE: "live", BUSINESSOS_INSTANCE_ID: "synthetic-smoke", BUSINESSOS_DATA_DIR: storage, BUSINESSOS_OWNER_TOKEN: owner, BUSINESSOS_REVIEWER_TOKEN: reviewer, BUSINESSOS_WORKER_TOKEN: worker, BUSINESSOS_API_URL: `http://127.0.0.1:${apiPort}`, BUSINESS_STAGE: "pre_acquisition", HOSTNAME: "127.0.0.1", PORT: String(webPort) };
-const python = process.env.BUSINESSOS_PYTHON ?? (process.platform === "win32" ? join(root, ".venv/Scripts/python.exe") : "python");
+const configuredPython = process.env.BUSINESSOS_PYTHON;
+const localWindowsPython = join(root, ".venv/Scripts/python.exe");
+const python = configuredPython || (process.platform === "win32" && existsSync(localWindowsPython) ? localWindowsPython : "python");
 const api = spawn(python, ["-m", "businessos", "serve", "--port", String(apiPort)], { cwd: root, env, windowsHide: true, stdio: ["ignore", "pipe", "pipe"] });
 const web = spawn(process.execPath, [serverPath], { cwd: root, env, windowsHide: true, stdio: ["ignore", "pipe", "pipe"] });
 let logs = "";

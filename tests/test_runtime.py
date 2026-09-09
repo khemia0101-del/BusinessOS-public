@@ -189,6 +189,10 @@ class RuntimeTests(unittest.TestCase):
         data = self.report(); data["business_id"] = "beta"
         with self.assertRaises(ValidationError): self.runtime.create_report(data, "owner")
 
+    def test_company_industry_is_an_explicit_enum(self):
+        with self.assertRaisesRegex(ValidationError, "Industry"):
+            self.runtime.configure({"display_name": "Synthetic Company", "industry": "unknown-industry"}, "owner")
+
     def test_citation_locator_must_exist(self):
         data = self.report(); data["citations"][0]["locator"] = "page:999"
         with self.assertRaisesRegex(ValidationError, "locator"): self.runtime.create_report(data, "owner")

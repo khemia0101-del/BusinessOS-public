@@ -49,8 +49,11 @@ export async function runNotebookJob(job, tab, options = {}) {
       await tab.click(query);
       await tab.paste(job.question, { format: "text" });
       state = await tab.getAXState({ emit: false, disableDiffing: true });
-      await tab.click(element(state, /^button Submit$/));
+      // A submit may trigger an external write before its promise rejects. Mark
+      // the operation as uncertain before clicking so failures cannot be
+      // misreported as a safe, non-mutating failure.
       externalWriteAttempted = true;
+      await tab.click(element(state, /^button Submit$/));
       for (let attempt = 0; attempt < 30; attempt++) {
         state = await tab.getAXState({ emit: false, disableDiffing: true });
         const questionAt = state.lastIndexOf(`text ${job.question}`);
